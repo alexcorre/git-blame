@@ -1,0 +1,23 @@
+{
+  "context-menu": {
+    ".overlayer": {
+      "Blame this file": "git-blame:blame"
+    }
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "git-blame",
+          "submenu": [
+            {
+              "label": "Blame",
+              "command": "git-blame:blame"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
