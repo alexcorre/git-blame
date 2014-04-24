@@ -1,0 +1,3 @@
+[submodule "node_modules/git-tools"]
+	path = node_modules/git-tools
+	url = git@github.com:alexcorre/node-git-tools.git
