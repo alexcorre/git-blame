@@ -6,8 +6,26 @@
 
 .git-blame {
   overflow: hidden;
+  background-color: @base-background-color;
 
   .blame-lines {
-    padding-bottom: 30px;
+    padding: 0 4px 30px 4px;
+    border-right: 1px solid @pane-item-border-color;
+    border-left: 1px solid @pane-item-border-color;
+
+    .blame-line {
+
+      .hash {
+        padding-right: @component-padding;
+      }
+
+      .date {
+        padding-right: @component-padding;
+      }
+
+      .committer {
+        float: right;
+      }
+    }
   }
 }
