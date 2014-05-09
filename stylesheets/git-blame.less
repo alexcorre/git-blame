@@ -7,13 +7,17 @@
 .git-blame {
   overflow: hidden;
   background-color: @base-background-color;
+  border-right: 1px solid @pane-item-border-color;
+  border-left: 1px solid @pane-item-border-color;
 
   .blame-lines {
     padding: 0 4px 30px 4px;
-    border-right: 1px solid @pane-item-border-color;
-    border-left: 1px solid @pane-item-border-color;
 
     .blame-line {
+
+      &.no-commit {
+        text-align: center;
+      }
 
       .hash {
         padding-right: @component-padding;
