@@ -4,16 +4,28 @@
 // for a full listing of what's available.
 @import "ui-variables";
 
+@git-blame-bg-color: @base-background-color;
+
 .git-blame {
   overflow: hidden;
-  background-color: @base-background-color;
+  background-color: @git-blame-bg-color;
   border-right: 1px solid @pane-item-border-color;
   border-left: 1px solid @pane-item-border-color;
 
   .blame-lines {
-    padding: 0 4px 30px 4px;
+    padding-bottom: 30px;
 
     .blame-line {
+
+      padding: 0 7px 0 4px;
+
+      &.line-bg-lighter {
+        background-color: lighten(@git-blame-bg-color, 4%);
+      }
+
+      &.line-bg-darker {
+        background-color: darken(@git-blame-bg-color, 4%);
+      }
 
       &.no-commit {
         text-align: center;
