@@ -4,7 +4,7 @@ module.exports =
 class BlameLineView extends View
 
   @content: (params) ->
-    if /^0*$/.test(params.hash)
+    if params.noCommit
       @div class: 'blame-line no-commit', =>
         @span class: 'text-subtle', '----------'
     else
