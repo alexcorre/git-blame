@@ -1,4 +1,5 @@
 {View} = require 'atom'
+RemoteRevision = require '../util/RemoteRevision'
 
 module.exports =
 class BlameLineView extends View
@@ -15,4 +16,11 @@ class BlameLineView extends View
 
 
   hashClicked: (event, element) ->
-    console.log(element.data('hash'));
+    filePath = atom.workspace.activePaneItem.getPath()
+    remoteUrl = atom.project.getRepo()?.getOriginUrl(filePath)
+    hash = element.data('hash')
+
+    # create a RemoteRevision from hash/remoteUrl and open it
+    RemoteRevision.create(hash, remoteUrl).open();
+
+
