@@ -4,7 +4,7 @@
 
 ## Usage
 
-Show git blame for the current editor with the command `ctrl-b`. Only works when `.editor` is actuve. Submodules? No problem. Click on the revision to be taken to the commit page on Github, Bitbucket, or your remote url of choice.
+Show git blame for the current editor with the command `ctrl-b`. Only works when `.editor` is active. Submodules? No problem. Click on the revision to be taken to the commit page on Github, Bitbucket, or your remote repository url of choice.
 
 ## Setting a Custom Remote Repo Url
 This plugin will first check to see if your repo is backed by **Github** or **Bitbucket** so nothing is required if your repo is.
