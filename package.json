@@ -3,7 +3,7 @@
   "main": "./lib/git-blame",
   "version": "0.0.1",
   "description": "IntelliJ style git blame for Atom.",
-  "activationEvents": ["git-blame:blame"],
+  "activationEvents": ["git-blame:toggle"],
   "repository": "https://github.com/alexcorre/git-blame",
   "license": "MIT",
   "engines": {

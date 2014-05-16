@@ -1,7 +1,7 @@
 {
   "context-menu": {
     ".overlayer": {
-      "Blame this file": "git-blame:blame"
+      "Toggle Git Blame": "git-blame:toggle"
     }
   },
   "menu": [
@@ -12,8 +12,8 @@
           "label": "git-blame",
           "submenu": [
             {
-              "label": "Blame",
-              "command": "git-blame:blame"
+              "label": "Toggle Git Blame",
+              "command": "git-blame:toggle"
             }
           ]
         }
