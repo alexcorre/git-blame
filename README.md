@@ -33,3 +33,11 @@ So when you clicked on hash revision 12345 in this git-blame repository, you wou
 ```
 https://github.com/alexcorre/git-blame/commit/12345
 ```
+
+## Release History
+
+* **0.2.0**
+  - Initial Release
+* **0.2.1**
+  - Fix [Issue #1](https://github.com/alexcorre/git-blame/issues/1). Remote URL parsing.
+  - Start on unit tests
