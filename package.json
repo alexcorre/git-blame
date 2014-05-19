@@ -1,7 +1,7 @@
 {
   "name": "git-blame",
   "main": "./lib/git-blame",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Toggle git-blame annotations in the gutter of atom editor.",
   "activationEvents": [
     "git-blame:toggle"
