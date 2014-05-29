@@ -36,8 +36,8 @@ https://github.com/alexcorre/git-blame/commit/12345
 
 ## Release History
 
-* **0.2.0**
-  - Initial Release
+* **0.2.0**: Initial Release
 * **0.2.1**
   - Fix [Issue #1](https://github.com/alexcorre/git-blame/issues/1). Remote URL parsing.
-  - Start on unit tests
+  - Added RemoteRevision unit tests
+* **0.2.2**: [Pull #6](https://github.com/alexcorre/git-blame/pull/6). Remote URL parsing without .git.
