@@ -102,6 +102,18 @@ describe('RemoteRevision', function() {
       });
     });
 
+    it('Should parse a repo url with dashes and wthout a .git ending correctly', function () {
+      var githubHttpRemote = 'https://github.com/some-project/some-repo';
+      instance.remote = githubHttpRemote;
+
+      var output = instance.parseProjectAndRepo();
+
+      expect(output).toEqual({
+        project: 'some-project',
+        repo: 'some-repo'
+      });
+    });
+
     it('Should work with a url with a port', function() {
       var portRemoteUrl = 'ssh://git@git.my-company.com:2222/group/repo-name.git';
       instance.remote = portRemoteUrl;
