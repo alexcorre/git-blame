@@ -41,3 +41,4 @@ https://github.com/alexcorre/git-blame/commit/12345
   - Fix [Issue #1](https://github.com/alexcorre/git-blame/issues/1). Remote URL parsing.
   - Added RemoteRevision unit tests
 * **0.2.2**: [Pull #6](https://github.com/alexcorre/git-blame/pull/6). Remote URL parsing without .git.
+* **0.2.3**: [Issue #5](https://github.com/alexcorre/git-blame/issues/5). Fix multiple gutters. Better error handling.
