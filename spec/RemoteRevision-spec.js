@@ -139,8 +139,8 @@ describe('RemoteRevision', function() {
     });
 
     it('Should work without a project', function() {
-      var portRemoteUrl = 'git@git.my-company.com:repo-name.git';
-      instance.remote = portRemoteUrl;
+      var repoOnlyUrl = 'git@git.my-company.com:repo-name.git';
+      instance.remote = repoOnlyUrl;
 
       var output = instance.parseProjectAndRepo();
 
