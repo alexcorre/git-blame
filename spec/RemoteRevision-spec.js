@@ -138,6 +138,18 @@ describe('RemoteRevision', function() {
       });
     });
 
+    it('Should work without a project', function() {
+      var repoOnlyUrl = 'git@git.my-company.com:repo-name.git';
+      instance.remote = repoOnlyUrl;
+
+      var output = instance.parseProjectAndRepo();
+
+      expect(output).toEqual({
+        project: 'repo-name',
+        repo: 'repo-name'
+      });
+    });
+
   });
 
 });
