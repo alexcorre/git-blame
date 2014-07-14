@@ -6,41 +6,60 @@
 
 @git-blame-bg-color: @base-background-color;
 
+.stretch(@top: 0; @right: 0; @bottom: 0; @left: 0) {
+  position: absolute;
+  top: @top;
+  right: @right;
+  bottom: @bottom;
+  left: @left;
+}
+
 .git-blame {
-  overflow: hidden;
-  background-color: @git-blame-bg-color;
-  border-right: 1px solid @pane-item-border-color;
-  border-left: 1px solid @pane-item-border-color;
+  margin-right: 5px;
+  position: relative;
+  width: 210px; // initial width. TODO: persist? config?
 
-  .blame-lines {
-    padding-bottom: 30px;
+  .git-blame-resize-handle {
+    .stretch(@left: auto);
+    width: 10px;
+    cursor: col-resize;
+    z-index: 1;
+  }
 
-    .blame-line {
+  .git-blame-scroller {
+    .stretch();
+    overflow: hidden;
+    background-color: @git-blame-bg-color;
+    border-right: 1px solid @pane-item-border-color;
+    border-left: 1px solid @pane-item-border-color;
 
-      padding: 0 7px 0 4px;
+    .blame-lines {
+      padding-bottom: 30px;
+      white-space: nowrap;
 
-      &.line-bg-lighter {
-        background-color: lighten(@git-blame-bg-color, 4%);
-      }
+      .blame-line {
+        padding-left: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
-      &.line-bg-darker {
-        background-color: darken(@git-blame-bg-color, 4%);
-      }
+        &.line-bg-lighter {
+          background-color: lighten(@git-blame-bg-color, 4%);
+        }
 
-      &.no-commit {
-        text-align: center;
-      }
+        &.line-bg-darker {
+          background-color: darken(@git-blame-bg-color, 4%);
+        }
 
-      .hash {
-        padding-right: @component-padding;
-      }
+        .hash, .date {
+          font-size: 80%;
+          padding-right: @component-padding;
+        }
 
-      .date {
-        padding-right: @component-padding;
-      }
-
-      .committer {
-        float: right;
+        &.no-commit {
+          .committer, .date {
+            display: none;
+          }
+        }
       }
     }
   }

@@ -6,8 +6,10 @@ class BlameLineView extends View
 
   @content: (params) ->
     if params.noCommit
-      @div class: 'blame-line no-commit', =>
-        @span class: 'text-subtle', '----------'
+      @div class: "blame-line no-commit text-subtle", =>
+        @span class: 'hash', '--------'
+        @span class: 'date', params.date
+        @span class: 'committer', 'Nobody'
     else
       @div class: 'blame-line ' + params.backgroundClass, =>
         @a 'data-hash': params.hash, class: 'hash', click: 'hashClicked', params.hash.substring(0,8)
@@ -21,6 +23,4 @@ class BlameLineView extends View
     hash = element.data('hash')
 
     # create a RemoteRevision from hash/remoteUrl and open it
-    RemoteRevision.create(hash, remoteUrl).open();
-
-
+    RemoteRevision.create(hash, remoteUrl).open()
