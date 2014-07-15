@@ -3,16 +3,9 @@
 // See https://github.com/atom/atom-dark-ui/blob/master/stylesheets/ui-variables.less
 // for a full listing of what's available.
 @import "ui-variables";
+@import "mixins";
 
 @git-blame-bg-color: @base-background-color;
-
-.stretch(@top: 0; @right: 0; @bottom: 0; @left: 0) {
-  position: absolute;
-  top: @top;
-  right: @right;
-  bottom: @bottom;
-  left: @left;
-}
 
 .git-blame {
   margin-right: 5px;
