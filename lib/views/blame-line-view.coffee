@@ -17,7 +17,7 @@ class BlameLineView extends View
         @a 'data-hash': params.hash, class: 'hash', click: 'hashClicked',
            params.hash.substring(0, @HASH_LENGTH)
         @span class: 'date', params.date
-        @span class: 'committer text-highlight',
+        @span class: 'committer variable',
               params.committer.split(' ').slice(-1)[0]
 
 
