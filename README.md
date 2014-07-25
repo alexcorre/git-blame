@@ -42,4 +42,4 @@ https://github.com/alexcorre/git-blame/commit/12345
   - Added RemoteRevision unit tests
 * **0.2.2**: [Pull #6](https://github.com/alexcorre/git-blame/pull/6). Remote URL parsing without .git.
 * **0.2.3**: [Issue #5](https://github.com/alexcorre/git-blame/issues/5). Fix multiple gutters. Better error handling.
-* **0.2.4**: React editor support. Support for repsitories that dont specify a project.
+* **0.2.4**: React editor support. Support for repositories that don't specify a project.
