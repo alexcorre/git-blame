@@ -1,52 +1,105 @@
 {$, ScrollView} = require 'atom'
-BlameLineView = require './blame-line-view'
+BlameLineComponent = require './blame-line-view'
+_ = require('underscore')
 
-module.exports =
-class BlameListView extends ScrollView
+{React, Reactionary} = require 'atom'
+{div, span, a} = Reactionary
 
-  @content: (params) ->
-    @div class: 'git-blame', =>
-      @div class: 'git-blame-resize-handle'
-      @div class: 'git-blame-scroller', outlet: 'scroller', =>
-        @div class: 'blame-lines', =>
-          for blameLine in params.annotations
-            blameLine.backgroundClass = @lineClass blameLine
-            do (blameLine) =>
-              @subview 'blame-line-' + blameLine.line, new BlameLineView(blameLine)
 
-  afterAttach: ->
-    @on 'mousedown', '.git-blame-resize-handle', @resizeStarted
+BlameListLinesComponent = React.createClass
+  render: ->
+    filePath = atom.workspace.activePaneItem.getPath()
+    remoteUrl = atom.project.getRepo()?.getOriginUrl(filePath)
 
-  @lastHash: ''
+    bgClass = null
+    lastHash = null
+    lines = for ann in @props.annotations
+      args = _.clone ann  # clone so we can modify it
 
-  @lastBgClass: ''
+      # url to open diff
+      args['url'] = remoteUrl
 
-  @lineClass: (lineData) ->
-    if lineData.noCommit
-      return ''
+      # alternating background colour by commit
+      bgClass = if ann.noCommit
+        ''
+      else if ann.hash is lastHash
+        bgClass
+      else if bgClass is 'line-bg-lighter'
+        'line-bg-darker'
+      else
+        'line-bg-lighter'
+      args['backgroundClass'] = bgClass
+      lastHash = ann.hash
 
-    if lineData.hash isnt @lastHash
-      @lastHash = lineData.hash
-      @lastBgClass = if @lastBgClass == 'line-bg-lighter' then 'line-bg-darker' else 'line-bg-lighter'
+      # finally, render the line
+      BlameLineComponent(args)
+    div null, lines
 
-    return @lastBgClass
+  shouldComponentUpdate: ->
+    false
 
-  resizeStarted: ({pageX}) =>
-    @initialPageX = pageX
-    @initialWidth = @width()
-    $(document).on 'mousemove', @resizeBlameListView
+
+BlameListView = React.createClass
+  getInitialState: ->
+    {
+      # TODO: get this from the parent component somehow?
+      scrollTop: @props.scrollbar.scrollTop()
+      # TODO: be intelligent about persisting this so it doesn't reset
+      width: 210
+    }
+
+  render: ->
+    div
+      className: 'git-blame'
+      style: width: @state.width,
+      div className: 'git-blame-resize-handle', onMouseDown: @resizeStarted
+      div className: 'git-blame-scroller',
+        div
+          className: 'blame-lines'
+          style: WebkitTransform: @getTransform()
+          BlameListLinesComponent annotations: @props.annotations
+
+  getTransform: ->
+    {scrollTop} = @state
+
+    # hardware acceleration causes rendering issues on resize, disabled for now
+    useHardwareAcceleration = false
+    if useHardwareAcceleration
+      "translate3d(0px, #{-scrollTop}px, 0px)"
+    else
+      "translate(0px, #{-scrollTop}px)"
+
+  componentDidMount: ->
+    # Bind to scroll event on vertical-scrollbar to sync up scroll position of
+    # blame gutter.
+    @props.scrollbar.on 'scroll', @matchScrollPosition
+
+  componentWillUnmount: ->
+    @props.scrollbar.off 'scroll', @matchScrollPosition
+
+  # Makes the view arguments scroll position match the target elements scroll
+  # position
+  matchScrollPosition: ->
+    @setState scrollTop: @props.scrollbar.scrollTop()
+
+  resizeStarted: ({pageX}) ->
+    @setState dragging: true, initialPageX: pageX, initialWidth: @state.width
+    $(document).on 'mousemove', @onResizeMouseMove
     $(document).on 'mouseup', @resizeStopped
 
-  resizeStopped: =>
-    $(document).off 'mousemove', @resizeBlameListView
+  resizeStopped: (e) ->
+    $(document).off 'mousemove', @onResizeMouseMove
     $(document).off 'mouseup', @resizeStopped
+    @setState dragging: false
 
-  resizeBlameListView: ({pageX, which}) =>
-    return @resizeStopped() unless which is 1
-    @width(@initialWidth + pageX - @initialPageX)
+    e.stopPropagation()
+    e.preventDefault()
 
-  # Used to sync up editor scrolling with the blame view.
-  # This is passed down to the scroller because we don't want to scroll the
-  # resizing markup.
-  scrollTop: (value) =>
-    @scroller.scrollTop value
+  onResizeMouseMove: (e) ->
+    return @resizeStopped() unless @state.dragging and e.which is 1
+    @setState width: @state.initialWidth + e.pageX - @state.initialPageX
+
+    e.stopPropagation()
+    e.preventDefault()
+
+module.exports = BlameListView
