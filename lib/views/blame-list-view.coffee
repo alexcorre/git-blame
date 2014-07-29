@@ -11,6 +11,7 @@ class BlameListView extends ScrollView
         @div class: 'blame-lines', =>
           for blameLine in params.annotations
             blameLine.backgroundClass = @lineClass blameLine
+            blameLine.committerClass = @committerHighlightClass blameLine
             do (blameLine) =>
               @subview 'blame-line-' + blameLine.line, new BlameLineView(blameLine)
 
@@ -19,17 +20,25 @@ class BlameListView extends ScrollView
 
   @lastHash: ''
 
-  @lastBgClass: ''
+  @lastLineAccent: 'light'
 
   @lineClass: (lineData) ->
+    lineClass = if @lightOrDark(lineData) == 'light' then 'line-bg-darker' else 'line-bg-lighter'
+    return lineClass
+
+  @committerHighlightClass: (lineData) ->
+    highlightClass = if @lightOrDark(lineData) == 'light' then 'variable' else ''
+    return highlightClass
+
+  @lightOrDark: (lineData) ->
     if lineData.noCommit
       return ''
 
     if lineData.hash isnt @lastHash
       @lastHash = lineData.hash
-      @lastBgClass = if @lastBgClass == 'line-bg-lighter' then 'line-bg-darker' else 'line-bg-lighter'
+      @lastLineAccent = if @lastLineAccent == 'light' then 'dark' else 'light'
 
-    return @lastBgClass
+    return @lastLineAccent
 
   resizeStarted: ({pageX}) =>
     @initialPageX = pageX
