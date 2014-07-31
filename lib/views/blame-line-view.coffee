@@ -1,8 +1,6 @@
-{View} = require 'atom'
-RemoteRevision = require '../util/RemoteRevision'
-
 {React, Reactionary} = require 'atom'
 {div, span, a} = Reactionary
+RemoteRevision = require '../util/RemoteRevision'
 
 HASH_LENGTH = 7  # github uses this length
 

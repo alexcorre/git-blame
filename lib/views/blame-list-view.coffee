@@ -1,9 +1,7 @@
-{$, ScrollView} = require 'atom'
-BlameLineComponent = require './blame-line-view'
-_ = require('underscore')
-
-{React, Reactionary} = require 'atom'
+{React, Reactionary, $} = require 'atom'
 {div, span, a} = Reactionary
+_ = require('underscore')
+BlameLineComponent = require './blame-line-view'
 
 
 BlameListLinesComponent = React.createClass
