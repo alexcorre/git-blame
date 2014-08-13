@@ -13,7 +13,7 @@ class BlameLineView extends View
         @span class: 'date', params.date
         @span class: 'committer', 'Nobody'
     else
-      @div class: 'blame-line ' + params.backgroundClass, =>
+      @div class: 'blame-line ' + params.backgroundClass, title: params.summary, =>
         @a 'data-hash': params.hash, class: 'hash', click: 'hashClicked',
            params.hash.substring(0, @HASH_LENGTH)
         @span class: 'date', params.date
