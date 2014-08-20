@@ -5,33 +5,35 @@ BlameLineComponent = require './blame-line-view'
 
 
 BlameListLinesComponent = React.createClass
-  render: ->
-    filePath = atom.workspace.activePaneItem.getPath()
-    remoteUrl = atom.project.getRepo()?.getOriginUrl(filePath)
-
+  # makes background color alternate by commit
+  _addAlternatingBackgroundColor: (lines) ->
     bgClass = null
     lastHash = null
-    lines = for ann in @props.annotations
-      args = _.clone ann  # clone so we can modify it
-
-      # url to open diff
-      args['url'] = remoteUrl
-
-      # alternating background colour by commit
-      bgClass = if ann.noCommit
+    for line in lines
+      bgClass = if line.noCommit
         ''
-      else if ann.hash is lastHash
+      else if line.hash is lastHash
         bgClass
       else if bgClass is 'line-bg-lighter'
         'line-bg-darker'
       else
         'line-bg-lighter'
-      args['backgroundClass'] = bgClass
-      lastHash = ann.hash
+      line['backgroundClass'] = bgClass
+      lastHash = line.hash
+    lines
 
-      # finally, render the line
-      BlameLineComponent(args)
-    div null, lines
+  render: ->
+    # clone so it can be modified
+    lines = _.clone @props.annotations
+
+    # add url to open diff
+    filePath = atom.workspace.activePaneItem.getPath()
+    remoteUrl = atom.project.getRepo()?.getOriginUrl(filePath)
+    l['url'] = remoteUrl for l in lines
+
+    @_addAlternatingBackgroundColor lines
+
+    div null, lines.map BlameLineComponent
 
   shouldComponentUpdate: ->
     false
