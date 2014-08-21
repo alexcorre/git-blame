@@ -20,6 +20,9 @@ class BlameLineView extends View
         @span class: 'committer text-highlight',
               params.committer.split(' ').slice(-1)[0]
 
+  afterAttach: (onDom) ->
+    if @is(".blame-line")
+      @setTooltip @attr "title"
 
   hashClicked: (event, element) ->
     filePath = atom.workspace.activePaneItem.getPath()
