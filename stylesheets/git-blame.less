@@ -7,49 +7,50 @@
 
 @git-blame-bg-color: @base-background-color;
 
-.git-blame {
+.git-blame-mount {
   position: relative;
-  width: 210px; // initial width. TODO: persist? config?
 
-  .git-blame-resize-handle {
-    .stretch(@left: auto);
-    width: 10px;
-    cursor: col-resize;
-    z-index: 1;
-  }
+  .git-blame {
+    .git-blame-resize-handle {
+      .stretch(@left: auto);
+      width: 10px;
+      cursor: col-resize;
+      z-index: 1;
+    }
 
-  .git-blame-scroller {
-    .stretch();
-    overflow: hidden;
-    background-color: @git-blame-bg-color;
-    border-right: 1px solid @pane-item-border-color;
-    border-left: 1px solid @pane-item-border-color;
+    .git-blame-scroller {
+      .stretch();
+      overflow: hidden;
+      background-color: @git-blame-bg-color;
+      border-right: 1px solid @pane-item-border-color;
+      border-left: 1px solid @pane-item-border-color;
 
-    .blame-lines {
-      padding-bottom: 30px;
-      white-space: nowrap;
+      .blame-lines {
+        padding-bottom: 30px;
+        white-space: nowrap;
 
-      .blame-line {
-        padding-left: 4px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        .blame-line {
+          padding-left: 4px;
+          overflow: hidden;
+          text-overflow: ellipsis;
 
-        &.line-bg-lighter {
-          background-color: lighten(@git-blame-bg-color, 4%);
-        }
+          &.line-bg-lighter {
+            background-color: lighten(@git-blame-bg-color, 4%);
+          }
 
-        &.line-bg-darker {
-          background-color: darken(@git-blame-bg-color, 4%);
-        }
+          &.line-bg-darker {
+            background-color: darken(@git-blame-bg-color, 4%);
+          }
 
-        .hash, .date {
-          font-size: 90%;
-          padding-right: @component-padding;
-        }
+          .hash, .date {
+            font-size: 90%;
+            padding-right: @component-padding;
+          }
 
-        &.no-commit {
-          .committer, .date {
-            display: none;
+          &.no-commit {
+            .committer, .date {
+              display: none;
+            }
           }
         }
       }
