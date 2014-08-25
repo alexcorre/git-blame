@@ -1,4 +1,4 @@
-{React, Reactionary} = require 'atom'
+{$, React, Reactionary} = require 'atom'
 {div, span, a} = Reactionary
 RemoteRevision = require '../util/RemoteRevision'
 
@@ -20,6 +20,16 @@ BlameLineComponent = React.createClass
         span className: 'date', @props.date
         span className: 'committer text-highlight',
           @props.committer.split(' ').slice(-1)[0]
+
+  componentDidMount: ->
+    $el = $(@getDOMNode())
+    if @props.summary
+      $el.setTooltip
+        title: @props.summary
+        placement: "auto left"
+
+  componentWillUnmount: ->
+    $(@getDOMNode()).tooltip "destroy"
 
   shouldComponentUpdate: ->
     false
