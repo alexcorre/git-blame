@@ -11,6 +11,7 @@ BlameListLinesComponent = React.createClass
     loading: RP.bool.isRequired
     filePath: RP.string.isRequired
     lineCount: RP.number.isRequired
+    remoteRevision: RP.object.isRequired
 
   renderLoading: ->
     lines = [0...@props.lineCount].map renderLoading
@@ -38,9 +39,7 @@ BlameListLinesComponent = React.createClass
     lines = _.clone @props.annotations
 
     # add url to open diff
-    filePath = atom.workspace.activePaneItem.getPath()
-    remoteUrl = atom.project.getRepo()?.getOriginUrl(filePath)
-    l['url'] = remoteUrl for l in lines
+    l.remoteRevision = @props.remoteRevision for l in lines
     @_addAlternatingBackgroundColor lines
     div null, lines.map BlameLineComponent
 
@@ -57,6 +56,7 @@ BlameListLinesComponent = React.createClass
 BlameListView = React.createClass
   propTypes:
     projectBlamer: RP.object.isRequired
+    remoteRevision: RP.object.isRequired
     filePath: RP.string.isRequired
     lineCount: RP.number.isRequired
     scrollbar: RP.object.isRequired
@@ -87,6 +87,7 @@ BlameListView = React.createClass
             loading: @state.loading
             filePath: @props.filePath
             lineCount: @props.lineCount
+            remoteRevision: @props.remoteRevision
 
     div
       className: 'git-blame'
