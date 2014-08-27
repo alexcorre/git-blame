@@ -1,7 +1,6 @@
 {$, React, Reactionary} = require 'atom'
 RP = React.PropTypes
 {div, span, a} = Reactionary
-RemoteRevision = require '../util/RemoteRevision'
 
 HASH_LENGTH = 7  # github uses this length
 BLANK_HASH = '-'.repeat(HASH_LENGTH)
@@ -18,7 +17,7 @@ BlameLineComponent = React.createClass
   propTypes:
     date: RP.string.isRequired
     hash: RP.string.isRequired
-    url: RP.string.isRequired
+    remoteRevision: RP.object.isRequired
     committer: RP.string.isRequired
     backgroundClass: RP.string
     noCommit: RP.bool
@@ -30,7 +29,7 @@ BlameLineComponent = React.createClass
         span className: 'date', @props.date
         span className: 'committer', 'Nobody'
     else
-      url = RemoteRevision.create(@props.hash, @props.url).url()
+      url = @props.remoteRevision.url @props.hash
       div className: 'blame-line ' + @props.backgroundClass,
         a className: 'hash', href: url,
           @props.hash.substring(0, HASH_LENGTH)
