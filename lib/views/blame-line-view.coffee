@@ -47,7 +47,4 @@ BlameLineComponent = React.createClass
   componentWillUnmount: ->
     $(@getDOMNode()).tooltip "destroy"
 
-  shouldComponentUpdate: ->
-    false
-
 module.exports = {BlameLineComponent, renderLoading}
