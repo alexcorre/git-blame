@@ -9,6 +9,7 @@ BlameListLinesComponent = React.createClass
   propTypes:
     annotations: RP.arrayOf(RP.object)
     loading: RP.bool.isRequired
+    dirty: RP.bool.isRequired
     initialLineCount: RP.number.isRequired
     remoteRevision: RP.object.isRequired
 
@@ -48,9 +49,10 @@ BlameListLinesComponent = React.createClass
     else
       @renderLoaded()
 
-  shouldComponentUpdate: ({loading}) ->
-    loading isnt @props.loading
-
+  shouldComponentUpdate: ({loading, dirty}) ->
+    finishedInitialLoad = @props.loading and not loading and not @props.dirty
+    finishedEdit = @props.dirty and not dirty
+    finishedInitialLoad or finishedEdit
 
 BlameListView = React.createClass
   propTypes:
@@ -88,10 +90,10 @@ BlameListView = React.createClass
           style: WebkitTransform: @getTransform()
           BlameListLinesComponent
             annotations: @state.annotations
-            loading: @state.loading and not @state.dirty
+            loading: @state.loading
+            dirty: @state.dirty
             initialLineCount: @editor().getLineCount()
             remoteRevision: @props.remoteRevision
-
     div
       className: 'git-blame'
       style: width: @state.width, display: display

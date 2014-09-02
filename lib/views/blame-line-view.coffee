@@ -50,4 +50,7 @@ BlameLineComponent = React.createClass
   componentWillUnmount: ->
     $(@getDOMNode()).tooltip "destroy"
 
+  shouldComponentUpdate: ({hash}) ->
+    hash isnt @props.hash
+
 module.exports = {BlameLineComponent, renderLoading}
