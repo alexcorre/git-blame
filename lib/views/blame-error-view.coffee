@@ -14,5 +14,4 @@ class BlameErrorView extends View
     this.remove();
 
   attach: ->
-    atom.workspaceView.append(this);
-
+    atom.workspaceView.append(this)

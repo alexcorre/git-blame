@@ -1,15 +1,18 @@
 {$, React, Reactionary} = require 'atom'
-RP = React.PropTypes
 {div, span, a} = Reactionary
+RP = React.PropTypes
+moment = require 'moment'
+{formatDate} = require '../util/blameFormatter'
 
 HASH_LENGTH = 7  # github uses this length
 BLANK_HASH = '-'.repeat(HASH_LENGTH)
+DEFAULT_DATE = formatDate moment("2000-01-01T13:17:00 Z")
 
 
 renderLoading = ->
   div className: 'blame-line loading',
     span className: 'hash', BLANK_HASH
-    span className: 'date', '1337-01-01'
+    span className: 'date', DEFAULT_DATE
     span className: 'committer', 'Loading'
 
 
