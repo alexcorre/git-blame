@@ -119,11 +119,33 @@ BlameListView = React.createClass
           error: true
           dirty: false
       else
+        data = @prepareDataForCurrentEditorState(data)
         @setState
           loading: false
           error: false
           dirty: false
           annotations: data
+
+  # Modifies the blame data for the current editor state, taking
+  # folds into account.
+  # TODO: Handle soft wraps here as well
+  prepareDataForCurrentEditorState: (originalData) ->
+    filteredLineData = []
+    highestScreenRowSeen = 0
+    e = @editor()
+
+    # loop through the blame data and filter out the blame line rows
+    # for lines that are not visible on the screen due to wrapped code
+    # TODO: Handle soft wraps here.
+    # Using each instead of _.filter() since I will need to add empty rows
+    # for line wraps
+    _.each originalData, (lineData, index) ->
+      screenRow = e.screenPositionForBufferPosition([index, 0]).row
+      if screenRow == index or screenRow > highestScreenRowSeen
+        filteredLineData.push lineData
+        highestScreenRowSeen = screenRow
+
+    return filteredLineData
 
   # bound callback for Editor 'contents-modified' event
   contentsModified: ->
@@ -137,8 +159,9 @@ BlameListView = React.createClass
 
   # bound callback for Editor 'screen-lines-changed' event
   screenLinesChanged: ->
-    console.log 'screen-lines-changed!'
-    return
+    return unless @isMounted()
+    @loadBlame() if @state.visible
+    @matchScrollPosition()
 
   toggle: ->
     if @state.visible
