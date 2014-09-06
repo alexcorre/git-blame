@@ -6,13 +6,16 @@ moment = require 'moment'
 
 HASH_LENGTH = 7  # github uses this length
 BLANK_HASH = '-'.repeat(HASH_LENGTH)
-DEFAULT_DATE = formatDate moment("2000-01-01T13:17:00 Z")
+
+_defaultDate = null
+getDefaultDate = ->
+  _defaultDate ?= formatDate moment("2014-01-01T13:37:00 Z")
 
 
 renderLoading = ->
   div className: 'blame-line loading',
     span className: 'hash', BLANK_HASH
-    span className: 'date', DEFAULT_DATE
+    span className: 'date', getDefaultDate()
     span className: 'committer', 'Loading'
 
 
@@ -50,7 +53,7 @@ BlameLineComponent = React.createClass
   componentWillUnmount: ->
     $(@getDOMNode()).tooltip "destroy"
 
-  shouldComponentUpdate: ->
-    false
+  shouldComponentUpdate: ({hash}) ->
+    hash isnt @props.hash
 
 module.exports = {BlameLineComponent, renderLoading}

@@ -1,5 +1,5 @@
 {React, Reactionary, $} = require 'atom'
-{div, span, a} = Reactionary
+{div} = Reactionary
 RP = React.PropTypes
 _ = require 'underscore'
 {BlameLineComponent, renderLoading} = require './blame-line-view'
@@ -9,12 +9,12 @@ BlameListLinesComponent = React.createClass
   propTypes:
     annotations: RP.arrayOf(RP.object)
     loading: RP.bool.isRequired
-    filePath: RP.string.isRequired
-    lineCount: RP.number.isRequired
+    dirty: RP.bool.isRequired
+    initialLineCount: RP.number.isRequired
     remoteRevision: RP.object.isRequired
 
   renderLoading: ->
-    lines = [0...@props.lineCount].map renderLoading
+    lines = [0...@props.initialLineCount].map renderLoading
     div null, lines
 
   # makes background color alternate by commit
@@ -49,27 +49,33 @@ BlameListLinesComponent = React.createClass
     else
       @renderLoaded()
 
-  shouldComponentUpdate: ({loading}) ->
-    loading isnt @props.loading
-
+  shouldComponentUpdate: ({loading, dirty}) ->
+    finishedInitialLoad = @props.loading and not loading and not @props.dirty
+    finishedEdit = @props.dirty and not dirty
+    finishedInitialLoad or finishedEdit
 
 BlameListView = React.createClass
   propTypes:
     projectBlamer: RP.object.isRequired
     remoteRevision: RP.object.isRequired
-    filePath: RP.string.isRequired
-    lineCount: RP.number.isRequired
-    scrollbar: RP.object.isRequired
+    editorView: RP.object.isRequired
 
   getInitialState: ->
     {
       # TODO: get this from the parent component somehow?
-      scrollTop: @props.scrollbar.scrollTop()
+      scrollTop: @scrollbar().scrollTop()
       # TODO: be intelligent about persisting this so it doesn't reset
       width: 210
       loading: true
       visible: true
+      dirty: false
     }
+
+  scrollbar: ->
+    @_scrollbar ?= @props.editorView.find('.vertical-scrollbar')
+
+  editor: ->
+    @_editor ?= @props.editorView.getModel()
 
   render: ->
     display = if @state.visible then 'inline-block' else 'none'
@@ -85,10 +91,9 @@ BlameListView = React.createClass
           BlameListLinesComponent
             annotations: @state.annotations
             loading: @state.loading
-            filePath: @props.filePath
-            lineCount: @props.lineCount
+            dirty: @state.dirty
+            initialLineCount: @editor().getLineCount()
             remoteRevision: @props.remoteRevision
-
     div
       className: 'git-blame'
       style: width: @state.width, display: display
@@ -107,38 +112,54 @@ BlameListView = React.createClass
 
   componentWillMount: ->
     # kick off async request for blame data
-    @loadBlame true
+    @loadBlame()
+    @editor().on 'contents-modified', @contentsModified
+    @editor().buffer.on 'saved', @saved
 
-  loadBlame: (force) ->
-    return if @state.loading and not force
-
+  loadBlame: ->
     @setState loading: true
-    @props.projectBlamer.blame @props.filePath, (err, data) =>
+    @props.projectBlamer.blame @editor().getPath(), (err, data) =>
       if err
         @setState
           loading: false
           error: true
+          dirty: false
       else
         @setState
           loading: false
           error: false
+          dirty: false
           annotations: data
 
+  contentsModified: ->
+    return unless @isMounted()
+    @setState dirty: true unless @state.dirty
+
+  saved: ->
+    return unless @isMounted()
+    @loadBlame() if @state.visible and @state.dirty
+
   toggle: ->
-    @setState visible: !@state.visible
+    if @state.visible
+      @setState visible: false
+    else
+      @loadBlame() if @state.dirty
+      @setState visible: true
 
   componentDidMount: ->
     # Bind to scroll event on vertical-scrollbar to sync up scroll position of
     # blame gutter.
-    @props.scrollbar.on 'scroll', @matchScrollPosition
+    @scrollbar().on 'scroll', @matchScrollPosition
 
   componentWillUnmount: ->
-    @props.scrollbar.off 'scroll', @matchScrollPosition
+    @scrollbar().off 'scroll', @matchScrollPosition
+    @editor().off 'contents-modified', @contentsModified
+    @editor().buffer.off 'saved', @saved
 
   # Makes the view arguments scroll position match the target elements scroll
   # position
   matchScrollPosition: ->
-    @setState scrollTop: @props.scrollbar.scrollTop()
+    @setState scrollTop: @scrollbar().scrollTop()
 
   resizeStarted: ({pageX}) ->
     @setState dragging: true, initialPageX: pageX, initialWidth: @state.width
