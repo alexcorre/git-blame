@@ -110,12 +110,6 @@ BlameListView = React.createClass
     else
       "translate(0px, #{-scrollTop}px)"
 
-  componentWillMount: ->
-    # kick off async request for blame data
-    @loadBlame()
-    @editor().on 'contents-modified', @contentsModified
-    @editor().buffer.on 'saved', @saved
-
   loadBlame: ->
     @setState loading: true
     @props.projectBlamer.blame @editor().getPath(), (err, data) =>
@@ -131,13 +125,20 @@ BlameListView = React.createClass
           dirty: false
           annotations: data
 
+  # bound callback for Editor 'contents-modified' event
   contentsModified: ->
     return unless @isMounted()
     @setState dirty: true unless @state.dirty
 
+  # bound callback for Editor.buffer 'saved' event
   saved: ->
     return unless @isMounted()
     @loadBlame() if @state.visible and @state.dirty
+
+  # bound callback for Editor 'screen-lines-changed' event
+  screenLinesChanged: ->
+    console.log 'screen-lines-changed!'
+    return
 
   toggle: ->
     if @state.visible
@@ -151,9 +152,17 @@ BlameListView = React.createClass
     # blame gutter.
     @scrollbar().on 'scroll', @matchScrollPosition
 
+  componentWillMount: ->
+    # kick off async request for blame data
+    @loadBlame()
+    @editor().on 'contents-modified', @contentsModified
+    @editor().on 'screen-lines-changed', @screenLinesChanged
+    @editor().buffer.on 'saved', @saved
+
   componentWillUnmount: ->
     @scrollbar().off 'scroll', @matchScrollPosition
     @editor().off 'contents-modified', @contentsModified
+    @editor().off 'screen-lines-changed', @screenLinesChanged
     @editor().buffer.off 'saved', @saved
 
   # Makes the view arguments scroll position match the target elements scroll
