@@ -13,11 +13,14 @@ BlameListLinesComponent = React.createClass
     initialLineCount: RP.number.isRequired
     remoteRevision: RP.object.isRequired
 
+  # Renders the loading gutter. Should be shown while blame command
+  # line async process is happening, i.e. when @props.loading is true
   renderLoading: ->
     lines = [0...@props.initialLineCount].map renderLoading
     div null, lines
 
-  # makes background color alternate by commit
+  # Helper that makes background color of BlameLineComponent
+  # alternate by commit
   _addAlternatingBackgroundColor: (lines) ->
     bgClass = null
     lastHash = null
@@ -34,6 +37,7 @@ BlameListLinesComponent = React.createClass
       lastHash = line.hash
     lines
 
+  # Renders list of BlameLineComponents to show the user useful git-blame data
   renderLoaded: ->
     # clone so it can be modified
     lines = _.clone @props.annotations
@@ -79,6 +83,7 @@ BlameListView = React.createClass
 
   render: ->
     display = if @state.visible then 'inline-block' else 'none'
+    preparedAnnotations = @prepareAnnotationsForCurrentEditorState @state.annotations
 
     body = if @state.error
       div "Sorry, an error occurred."  # TODO: make this better
@@ -89,7 +94,7 @@ BlameListView = React.createClass
           className: 'blame-lines'
           style: WebkitTransform: @getTransform()
           BlameListLinesComponent
-            annotations: @state.annotations
+            annotations: preparedAnnotations
             loading: @state.loading
             dirty: @state.dirty
             initialLineCount: @editor().getLineCount()
@@ -119,7 +124,6 @@ BlameListView = React.createClass
           error: true
           dirty: false
       else
-        data = @prepareDataForCurrentEditorState(data)
         @setState
           loading: false
           error: false
@@ -129,17 +133,19 @@ BlameListView = React.createClass
   # Modifies the blame data for the current editor state, taking
   # folds into account.
   # TODO: Handle soft wraps here as well
-  prepareDataForCurrentEditorState: (originalData) ->
+  prepareAnnotationsForCurrentEditorState: (annotations) ->
+    return unless annotations
+
     filteredLineData = []
     highestScreenRowSeen = 0
     e = @editor()
 
     # loop through the blame data and filter out the blame line rows
-    # for lines that are not visible on the screen due to wrapped code
+    # for lines that are not visible on the screen due to folded code
     # TODO: Handle soft wraps here.
     # Using each instead of _.filter() since I will need to add empty rows
     # for line wraps
-    _.each originalData, (lineData, index) ->
+    for lineData, index in annotations
       screenRow = e.screenPositionForBufferPosition([index, 0]).row
       if screenRow == index or screenRow > highestScreenRowSeen
         filteredLineData.push lineData
@@ -157,10 +163,11 @@ BlameListView = React.createClass
     return unless @isMounted()
     @loadBlame() if @state.visible and @state.dirty
 
-  # bound callback for Editor 'screen-lines-changed' event
+  # bound callback for Editor 'screen-lines-changed' event. Force a
+  # re-render with current data.
   screenLinesChanged: ->
     return unless @isMounted()
-    @loadBlame() if @state.visible
+    @forceUpdate()
     @matchScrollPosition()
 
   toggle: ->
