@@ -18,13 +18,15 @@ renderLoading = ->
     span className: 'date', getDefaultDate()
     span className: 'committer', 'Loading'
 
-
 BlameLineComponent = React.createClass
   propTypes:
     date: RP.string.isRequired
     hash: RP.string.isRequired
     remoteRevision: RP.object.isRequired
+    author: RP.string.isRequired
     committer: RP.string.isRequired
+    committerDate: RP.string.isRequired
+    summary: RP.string.isRequired
     backgroundClass: RP.string
     noCommit: RP.bool
 
