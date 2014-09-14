@@ -53,16 +53,15 @@ BlameListLinesComponent = React.createClass
     else
       @renderLoaded()
 
-  shouldComponentUpdate: ({loading, dirty}) ->
-    finishedInitialLoad = @props.loading and not loading and not @props.dirty
-    finishedEdit = @props.dirty and not dirty
-    finishedInitialLoad or finishedEdit
 
 BlameListView = React.createClass
   propTypes:
     projectBlamer: RP.object.isRequired
     remoteRevision: RP.object.isRequired
     editorView: RP.object.isRequired
+
+  # an array of event binding Disposable objects used for unbinding
+  eventBindingDisposables: []
 
   getInitialState: ->
     {
@@ -97,7 +96,7 @@ BlameListView = React.createClass
             annotations: preparedAnnotations
             loading: @state.loading
             dirty: @state.dirty
-            initialLineCount: @editor().getLineCount()
+            initialLineCount: preparedAnnotations.length
             remoteRevision: @props.remoteRevision
     div
       className: 'git-blame'
@@ -134,7 +133,7 @@ BlameListView = React.createClass
   # folds into account.
   # TODO: Handle soft wraps here as well
   prepareAnnotationsForCurrentEditorState: (annotations) ->
-    return unless annotations
+    return [] unless annotations
 
     filteredLineData = []
     highestScreenRowSeen = 0
@@ -143,8 +142,6 @@ BlameListView = React.createClass
     # loop through the blame data and filter out the blame line rows
     # for lines that are not visible on the screen due to folded code
     # TODO: Handle soft wraps here.
-    # Using each instead of _.filter() since I will need to add empty rows
-    # for line wraps
     for lineData, index in annotations
       screenRow = e.screenPositionForBufferPosition([index, 0]).row
       if screenRow == index or screenRow > highestScreenRowSeen
@@ -163,12 +160,14 @@ BlameListView = React.createClass
     return unless @isMounted()
     @loadBlame() if @state.visible and @state.dirty
 
-  # bound callback for Editor 'screen-lines-changed' event. Force a
-  # re-render with current data.
-  screenLinesChanged: ->
+  # bound callback for Editor 'screen-lines-changed' event. This happens quite
+  # often while editing, so we calla debounced method to force a re-render with
+  # current data. This is the only way to know when code is folded / unfolded,
+  # but its also called whenever new lines are added / while editing.
+  onScreenLinesChanged: (e) ->
     return unless @isMounted()
     @forceUpdate()
-    @matchScrollPosition()
+    # @matchScrollPosition()
 
   toggle: ->
     if @state.visible
@@ -185,20 +184,31 @@ BlameListView = React.createClass
   componentWillMount: ->
     # kick off async request for blame data
     @loadBlame()
-    @editor().on 'contents-modified', @contentsModified
-    @editor().on 'screen-lines-changed', @screenLinesChanged
-    @editor().buffer.on 'saved', @saved
+
+    # bind to published events
+    @eventBindingDisposables.push @editor().onDidStopChanging(@contentsModified)
+    @eventBindingDisposables.push @editor().buffer.onDidSave(@saved)
+
+    # bind to internal events
+    @editor().on 'screen-lines-changed', @onScreenLinesChanged
 
   componentWillUnmount: ->
-    @scrollbar().off 'scroll', @matchScrollPosition
-    @editor().off 'contents-modified', @contentsModified
-    @editor().off 'screen-lines-changed', @screenLinesChanged
-    @editor().buffer.off 'saved', @saved
+    # unbind published events
+    for disposable in @eventBindingDisposables
+      disposable.dispose()
 
-  # Makes the view arguments scroll position match the target elements scroll
-  # position
+    # unbind internal events
+    @editor().off 'screen-lines-changed', @onScreenLinesChanged
+    @scrollbar().off 'scroll', @matchScrollPosition
+
+  # Matches scroll position of the BlameListView with the scroll bar. Bit
+  # of a hack since blame scrolls separately from the buffer right now
   matchScrollPosition: ->
     @setState scrollTop: @scrollbar().scrollTop()
+
+  # ==========
+  # Resize
+  # ==========
 
   resizeStarted: ({pageX}) ->
     @setState dragging: true, initialPageX: pageX, initialWidth: @state.width
@@ -219,5 +229,9 @@ BlameListView = React.createClass
 
     e.stopPropagation()
     e.preventDefault()
+
+# ==========
+# Exports
+# ==========
 
 module.exports = BlameListView
