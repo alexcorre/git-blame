@@ -43,7 +43,7 @@ BlameLineComponent = React.createClass
           @props.hash.substring(0, HASH_LENGTH)
         span className: 'date', @props.date
         span className: 'committer text-highlight',
-          @props.committer.split(' ').slice(-1)[0]
+          @props.author.split(' ').slice(-1)[0]
 
   componentDidMount: ->
     $el = $(@getDOMNode())
