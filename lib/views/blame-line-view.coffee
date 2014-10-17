@@ -18,13 +18,15 @@ renderLoading = ->
     span className: 'date', getDefaultDate()
     span className: 'committer', 'Loading'
 
-
 BlameLineComponent = React.createClass
   propTypes:
     date: RP.string.isRequired
     hash: RP.string.isRequired
     remoteRevision: RP.object.isRequired
+    author: RP.string.isRequired
     committer: RP.string.isRequired
+    committerDate: RP.string.isRequired
+    summary: RP.string.isRequired
     backgroundClass: RP.string
     noCommit: RP.bool
 
@@ -41,7 +43,7 @@ BlameLineComponent = React.createClass
           @props.hash.substring(0, HASH_LENGTH)
         span className: 'date', @props.date
         span className: 'committer text-highlight',
-          @props.committer.split(' ').slice(-1)[0]
+          @props.author.split(' ').slice(-1)[0]
 
   componentDidMount: ->
     $el = $(@getDOMNode())

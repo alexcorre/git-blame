@@ -4,33 +4,10 @@ describe('RemoteRevision', function() {
 
   var DEFAULT_HASH = '12345';
   var instance;
+  var fakeRemoteUrl = 'git@github.com/alexcorre/git-blame.git';
 
   beforeEach(function () {
-    instance = new RemoteRevision();
-  });
-
-  describe('verifyTemplateData', function () {
-
-    it('Should return true if project, repo, and revision are defined', function () {
-      var data = {
-        project: 'some proj',
-        repo: 'some repo',
-        revision: '12345'
-      };
-
-      var isValidData = instance.verifyTemplateData(data);
-      expect(isValidData).toBe(true);
-    });
-
-    it('Should return false if only revision is defined', function () {
-      var data = {
-        revision: '12345'
-      };
-
-      var isValidData = instance.verifyTemplateData(data);
-      expect(isValidData).toBe(false);
-    });
-
+    instance = new RemoteRevision(fakeRemoteUrl);
   });
 
   describe('parseProjectAndRepo', function() {
@@ -42,7 +19,7 @@ describe('RemoteRevision', function() {
 
     afterEach(function () {
       instance.hash = null;
-      instance.remote = null;
+      instance.remote = fakeRemoteUrl;
     });
 
     it('Should return an empty object if pattern does not match', function () {
@@ -147,6 +124,30 @@ describe('RemoteRevision', function() {
       expect(output).toEqual({
         project: 'repo-name',
         repo: 'repo-name'
+      });
+    });
+
+    it('Should work when there is a . in the repo name', function() {
+      var dotRepoUrl = 'git@github.com:MoOx/moox.github.io.git';
+      instance.remote = dotRepoUrl;
+
+      var output = instance.parseProjectAndRepo();
+
+      expect(output).toEqual({
+        project: 'MoOx',
+        repo: 'moox.github.io'
+      });
+    });
+
+    it('Should work when there is a . in the project name', function() {
+      var dotRepoUrl = 'git@github.com:Mo.Ox/moox.github.io.git';
+      instance.remote = dotRepoUrl;
+
+      var output = instance.parseProjectAndRepo();
+
+      expect(output).toEqual({
+        project: 'Mo.Ox',
+        repo: 'moox.github.io'
       });
     });
 
