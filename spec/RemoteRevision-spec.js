@@ -150,6 +150,30 @@ describe('RemoteRevision', function() {
       });
     });
 
+    it('Should work when there is a . in the repo name', function() {
+      var dotRepoUrl = 'git@github.com:MoOx/moox.github.io.git';
+      instance.remote = dotRepoUrl;
+
+      var output = instance.parseProjectAndRepo();
+
+      expect(output).toEqual({
+        project: 'MoOx',
+        repo: 'moox.github.io'
+      });
+    });
+
+    it('Should work when there is a . in the project name', function() {
+      var dotRepoUrl = 'git@github.com:Mo.Ox/moox.github.io.git';
+      instance.remote = dotRepoUrl;
+
+      var output = instance.parseProjectAndRepo();
+
+      expect(output).toEqual({
+        project: 'Mo.Ox',
+        repo: 'moox.github.io'
+      });
+    });
+
   });
 
 });
