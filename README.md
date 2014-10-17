@@ -43,3 +43,9 @@ https://github.com/alexcorre/git-blame/commit/12345
 * **0.2.2**: [Pull #6](https://github.com/alexcorre/git-blame/pull/6). Remote URL parsing without .git.
 * **0.2.3**: [Issue #5](https://github.com/alexcorre/git-blame/issues/5). Fix multiple gutters. Better error handling.
 * **0.2.4**: React editor support. Support for repositories that don't specify a project.
+* **0.3.0**
+  - Resizable width of blame panel
+  - git-blame view layer rebuilt in React
+  - See commit message tooltip when hovering over a commit
+  - git-blame now updates to pick up changes on save
+  - support for remote repositories that have "." in project or repo names
