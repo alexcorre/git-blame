@@ -8,7 +8,17 @@
 
 Show git blame for the current editor with the command `ctrl-b`. Only works when `.editor` is active. Submodules? No problem. Click on the revision to be taken to the commit page on Github, Bitbucket, or your remote repository url of choice.
 
-## Setting a Custom Remote Repo Url
+## Options
+
+### Ignore White Space Diffs
+
+If this option is selected, the `git blame` command will be run with `-w` option.
+
+### Date Format String
+
+Default date format is `YYYY-MM-DD`. This feature is backed by [moment.js](http://momentjs.com/). Any formats [supported by moment](http://momentjs.com/docs/#/displaying/format/) are valid here.
+
+### Setting a Custom Remote Repo Url
 This plugin will first check to see if your repo is backed by **Github** or **Bitbucket** so nothing is required if your repo is hosted on one of these.
 
 If its not, you can easily set a custom revision URL string like so:
