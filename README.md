@@ -59,4 +59,5 @@ https://github.com/alexcorre/git-blame/commit/12345
   - See commit message tooltip when hovering over a commit
   - git-blame now updates to pick up changes on save
   - support for remote repositories that have "." in project or repo names
-* **0.3.1**: [Issue #41](https://github.com/alexcorre/git-blame/issues/5). Option to blame with -w.
+* **0.3.1**: [Issue #41](https://github.com/alexcorre/git-blame/issues/41). Option to blame with -w.
+* **0.3.2**: [Issue #43](https://github.com/alexcorre/git-blame/issues/43).
