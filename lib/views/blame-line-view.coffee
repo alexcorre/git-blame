@@ -3,6 +3,7 @@
 RP = React.PropTypes
 moment = require 'moment'
 {formatDate} = require '../util/blameFormatter'
+errorController = require '../controllers/errorController'
 
 HASH_LENGTH = 7  # github uses this length
 BLANK_HASH = '-'.repeat(HASH_LENGTH)
@@ -22,7 +23,7 @@ BlameLineComponent = React.createClass
   propTypes:
     date: RP.string.isRequired
     hash: RP.string.isRequired
-    remoteRevision: RP.object.isRequired
+    remoteRevision: RP.object
     author: RP.string.isRequired
     committer: RP.string.isRequired
     committerDate: RP.string.isRequired
@@ -37,10 +38,13 @@ BlameLineComponent = React.createClass
         span className: 'date', @props.date
         span className: 'committer', 'Nobody'
     else
-      url = @props.remoteRevision.url @props.hash
       div className: 'blame-line ' + @props.backgroundClass,
-        a className: 'hash', href: url,
-          @props.hash.substring(0, HASH_LENGTH)
+        unless @props.remoteRevision
+          a onClick: @didClickHashWithoutUrl, className: 'hash', @props.hash.substring(0, HASH_LENGTH)
+        else
+          url = @props.remoteRevision.url @props.hash
+          a className: 'hash', href: url,
+            @props.hash.substring(0, HASH_LENGTH)
         span className: 'date', @props.date
         span className: 'committer text-highlight',
           @props.author.split(' ').slice(-1)[0]
@@ -57,5 +61,8 @@ BlameLineComponent = React.createClass
 
   shouldComponentUpdate: ({hash}) ->
     hash isnt @props.hash
+
+  didClickHashWithoutUrl: (event, element) ->
+    errorController.showError 'error-no-custom-url-specified'
 
 module.exports = {BlameLineComponent, renderLoading}
