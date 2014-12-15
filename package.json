@@ -9,7 +9,7 @@
   "repository": "https://github.com/alexcorre/git-blame",
   "license": "MIT",
   "engines": {
-    "atom": ">=0.127.0"
+    "atom": ">=0.153.0"
   },
   "dependencies": {
     "underscore": "1.6.0",
