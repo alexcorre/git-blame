@@ -61,3 +61,4 @@ https://github.com/alexcorre/git-blame/commit/12345
   - support for remote repositories that have "." in project or repo names
 * **0.3.1**: [Issue #41](https://github.com/alexcorre/git-blame/issues/41). Option to blame with -w.
 * **0.3.2**: [Issue #43](https://github.com/alexcorre/git-blame/issues/43).
+* **0.3.3**: Fix gramatical issues in error prompts.
