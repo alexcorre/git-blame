@@ -47,6 +47,15 @@ atom-text-editor::shadow .git-blame-mount {
             padding-right: @component-padding;
           }
 
+          a.hash {
+            color: @text-color;
+            text-decoration: none;
+          }
+
+          a.hash:hover {
+            text-decoration: underline;
+          }
+
           &.no-commit {
             .committer, .date {
               display: none;
