@@ -2,63 +2,19 @@
 {div} = Reactionary
 RP = React.PropTypes
 _ = require 'underscore'
-{BlameLineComponent, renderLoading} = require './blame-line-view'
+BlameListLinesComponent = require './blame-list-lines-component'
 
-
-BlameListLinesComponent = React.createClass
-  propTypes:
-    annotations: RP.arrayOf(RP.object)
-    loading: RP.bool.isRequired
-    dirty: RP.bool.isRequired
-    initialLineCount: RP.number.isRequired
-    remoteRevision: RP.object.isRequired
-
-  renderLoading: ->
-    lines = [0...@props.initialLineCount].map renderLoading
-    div null, lines
-
-  # makes background color alternate by commit
-  _addAlternatingBackgroundColor: (lines) ->
-    bgClass = null
-    lastHash = null
-    for line in lines
-      bgClass = if line.noCommit
-        ''
-      else if line.hash is lastHash
-        bgClass
-      else if bgClass is 'line-bg-lighter'
-        'line-bg-darker'
-      else
-        'line-bg-lighter'
-      line['backgroundClass'] = bgClass
-      lastHash = line.hash
-    lines
-
-  renderLoaded: ->
-    # clone so it can be modified
-    lines = _.clone @props.annotations
-
-    # add url to open diff
-    l.remoteRevision = @props.remoteRevision for l in lines
-    @_addAlternatingBackgroundColor lines
-    div null, lines.map BlameLineComponent
-
-  render: ->
-    if @props.loading
-      @renderLoading()
-    else
-      @renderLoaded()
-
-  shouldComponentUpdate: ({loading, dirty}) ->
-    finishedInitialLoad = @props.loading and not loading and not @props.dirty
-    finishedEdit = @props.dirty and not dirty
-    finishedInitialLoad or finishedEdit
-
+# Main container component for the git-blame gutter. Handles bound
+# Editor events to keep the blame gutter in sync. 
+#
 BlameListView = React.createClass
   propTypes:
     projectBlamer: RP.object.isRequired
     remoteRevision: RP.object.isRequired
     editorView: RP.object.isRequired
+
+  # an array of event binding Disposable objects used for unbinding
+  eventBindingDisposables: []
 
   getInitialState: ->
     {
@@ -79,6 +35,7 @@ BlameListView = React.createClass
 
   render: ->
     display = if @state.visible then 'inline-block' else 'none'
+    preparedAnnotations = @prepareAnnotationsForCurrentEditorState @state.annotations
 
     body = if @state.error
       div "Sorry, an error occurred."  # TODO: make this better
@@ -89,10 +46,10 @@ BlameListView = React.createClass
           className: 'blame-lines'
           style: WebkitTransform: @getTransform()
           BlameListLinesComponent
-            annotations: @state.annotations
+            annotations: preparedAnnotations
             loading: @state.loading
             dirty: @state.dirty
-            initialLineCount: @editor().getLineCount()
+            initialLineCount: preparedAnnotations.length
             remoteRevision: @props.remoteRevision
     div
       className: 'git-blame'
@@ -110,12 +67,6 @@ BlameListView = React.createClass
     else
       "translate(0px, #{-scrollTop}px)"
 
-  componentWillMount: ->
-    # kick off async request for blame data
-    @loadBlame()
-    @editor().on 'contents-modified', @contentsModified
-    @editor().buffer.on 'saved', @saved
-
   loadBlame: ->
     @setState loading: true
     @props.projectBlamer.blame @editor().getPath(), (err, data) =>
@@ -131,13 +82,45 @@ BlameListView = React.createClass
           dirty: false
           annotations: data
 
+  # Modifies the blame data for the current editor state, taking
+  # folds into account.
+  # TODO: Handle soft wraps here as well
+  prepareAnnotationsForCurrentEditorState: (annotations) ->
+    return [] unless annotations
+
+    filteredLineData = []
+    highestScreenRowSeen = 0
+    e = @editor()
+
+    # loop through the blame data and filter out the blame line rows
+    # for lines that are not visible on the screen due to folded code
+    # TODO: Handle soft wraps here.
+    for lineData, index in annotations
+      screenRow = e.screenPositionForBufferPosition([index, 0]).row
+      if screenRow == index or screenRow > highestScreenRowSeen
+        filteredLineData.push lineData
+        highestScreenRowSeen = screenRow
+
+    return filteredLineData
+
+  # bound callback for Editor 'contents-modified' event
   contentsModified: ->
     return unless @isMounted()
     @setState dirty: true unless @state.dirty
 
+  # bound callback for Editor.buffer 'saved' event
   saved: ->
     return unless @isMounted()
     @loadBlame() if @state.visible and @state.dirty
+
+  # bound callback for Editor 'screen-lines-changed' event. This happens quite
+  # often while editing, so we calla debounced method to force a re-render with
+  # current data. This is the only way to know when code is folded / unfolded,
+  # but its also called whenever new lines are added / while editing.
+  onScreenLinesChanged: (e) ->
+    return unless @isMounted()
+    @forceUpdate()
+    # @matchScrollPosition()
 
   toggle: ->
     if @state.visible
@@ -151,15 +134,34 @@ BlameListView = React.createClass
     # blame gutter.
     @scrollbar().on 'scroll', @matchScrollPosition
 
-  componentWillUnmount: ->
-    @scrollbar().off 'scroll', @matchScrollPosition
-    @editor().off 'contents-modified', @contentsModified
-    @editor().buffer.off 'saved', @saved
+  componentWillMount: ->
+    # kick off async request for blame data
+    @loadBlame()
 
-  # Makes the view arguments scroll position match the target elements scroll
-  # position
+    # bind to published events
+    @eventBindingDisposables.push @editor().onDidStopChanging(@contentsModified)
+    @eventBindingDisposables.push @editor().buffer.onDidSave(@saved)
+
+    # bind to internal events
+    @editor().on 'screen-lines-changed', @onScreenLinesChanged
+
+  componentWillUnmount: ->
+    # unbind published events
+    for disposable in @eventBindingDisposables
+      disposable.dispose()
+
+    # unbind internal events
+    @editor().off 'screen-lines-changed', @onScreenLinesChanged
+    @scrollbar().off 'scroll', @matchScrollPosition
+
+  # Matches scroll position of the BlameListView with the scroll bar. Bit
+  # of a hack since blame scrolls separately from the buffer right now
   matchScrollPosition: ->
     @setState scrollTop: @scrollbar().scrollTop()
+
+  # ==========
+  # Resize
+  # ==========
 
   resizeStarted: ({pageX}) ->
     @setState dragging: true, initialPageX: pageX, initialWidth: @state.width
@@ -180,5 +182,9 @@ BlameListView = React.createClass
 
     e.stopPropagation()
     e.preventDefault()
+
+# ==========
+# Exports
+# ==========
 
 module.exports = BlameListView
