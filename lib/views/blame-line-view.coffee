@@ -1,4 +1,6 @@
-{$, React, Reactionary} = require 'atom'
+{$} = require 'atom-space-pen-views'
+React = require 'react-atom-fork'
+Reactionary = require 'reactionary-atom-fork'
 {div, span, a} = Reactionary
 RP = React.PropTypes
 moment = require 'moment'
@@ -52,9 +54,11 @@ BlameLineComponent = React.createClass
   componentDidMount: ->
     $el = $(@getDOMNode())
     if @props.summary
-      $el.setTooltip
+      atom.tooltips.add($el,
         title: @props.summary
         placement: "auto left"
+      )
+
 
   componentWillUnmount: ->
     $(@getDOMNode()).tooltip "destroy"
