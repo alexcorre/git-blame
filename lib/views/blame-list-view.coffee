@@ -1,4 +1,6 @@
-{React, Reactionary, $} = require 'atom'
+{$} = require 'atom-space-pen-views'
+React = require 'react-atom-fork'
+Reactionary = require 'reactionary-atom-fork'
 {div} = Reactionary
 RP = React.PropTypes
 _ = require 'underscore'
@@ -113,8 +115,8 @@ BlameListView = React.createClass
   componentWillMount: ->
     # kick off async request for blame data
     @loadBlame()
-    @editor().on 'contents-modified', @contentsModified
-    @editor().buffer.on 'saved', @saved
+    @editor().onDidStopChanging @contentsModified
+    @editor().onDidSave @saved
 
   loadBlame: ->
     @setState loading: true
