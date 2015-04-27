@@ -12,11 +12,14 @@
     "atom": ">=0.153.0"
   },
   "dependencies": {
+    "fs-plus": "^2.3.2",
     "underscore": "1.6.0",
     "moment": "2.6.x",
     "loophole": "1.0.x",
     "atom-space-pen-views": "^2.0.3",
     "react-atom-fork": "^0.11",
-    "reactionary-atom-fork": "^0.9"
+    "reactionary-atom-fork": "^0.9",
+    "pathwatcher": "^4.4",
+    "temp": "0.7.0"
   }
 }
