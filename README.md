@@ -63,3 +63,4 @@ https://github.com/alexcorre/git-blame/commit/12345
 * **0.3.2**: [Issue #43](https://github.com/alexcorre/git-blame/issues/43).
 * **0.3.3**: Fix gramatical issues in error prompts.
 * **0.4.0**: Shadow DOM compatibility, Atom 1.0 fixes
+* **0.4.1**: Fix Atom 0.190.0 deprecations
