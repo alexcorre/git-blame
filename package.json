@@ -3,9 +3,9 @@
   "main": "./lib/git-blame",
   "version": "0.4.0",
   "description": "Toggle git-blame annotations in the gutter of atom editor.",
-  "activationEvents": [
-    "git-blame:toggle"
-  ],
+  "activationCommands": {
+      "atom-text-editor": [ "git-blame:toggle"]
+  },
   "repository": "https://github.com/alexcorre/git-blame",
   "license": "MIT",
   "engines": {
