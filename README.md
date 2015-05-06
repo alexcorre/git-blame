@@ -65,3 +65,4 @@ https://github.com/alexcorre/git-blame/commit/12345
 * **0.4.0**: Shadow DOM compatibility, Atom 1.0 fixes
 * **0.4.1**: Fix Atom 0.190.0 deprecations
 * **0.4.2**: Add support for multi repository projects. Fix issue when blaming empty files.
+* **0.4.3**: Remove further deprecations
