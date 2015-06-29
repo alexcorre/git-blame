@@ -74,7 +74,7 @@ BlameListView = React.createClass
     }
 
   scrollbar: ->
-    @_scrollbar ?= @props.editorView.find('.vertical-scrollbar')
+    @_scrollbar ?= $(@props.editorView.rootElement?.querySelector('.vertical-scrollbar'))
 
   editor: ->
     @_editor ?= @props.editorView.getModel()
