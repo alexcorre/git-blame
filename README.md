@@ -67,3 +67,4 @@ https://github.com/alexcorre/git-blame/commit/12345
 * **0.4.2**: Add support for multi repository projects. Fix issue when blaming empty files.
 * **0.4.3**: Remove further deprecations
 * **0.4.4**: Fix [#90](https://github.com/alexcorre/git-blame/issues/90)
+* **0.4.5**: Fix startup issues and the ability to click on a sha links. Thanks @filipminev
