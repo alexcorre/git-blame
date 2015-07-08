@@ -45,8 +45,7 @@ BlameLineComponent = React.createClass
           a onClick: @didClickHashWithoutUrl, className: 'hash', @props.hash.substring(0, HASH_LENGTH)
         else
           url = @props.remoteRevision.url @props.hash
-          a className: 'hash', href: url,
-            @props.hash.substring(0, HASH_LENGTH)
+          a href: url, target: '_blank', className: 'hash', @props.hash.substring(0, HASH_LENGTH)
         span className: 'date', @props.date
         span className: 'committer text-highlight',
           @props.author.split(' ').slice(-1)[0]
