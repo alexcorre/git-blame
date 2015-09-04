@@ -34,6 +34,10 @@ Click on the revision hash in the gutter to be taken to the configured repositor
 
 If this option is selected, the `git blame` command will be run with `-w` option.
 
+### Show Only Last Names
+
+If this option is selected, only the last word of the author's name will be displayed.
+
 ### Date Format String
 
 Default date format is `YYYY-MM-DD`. This feature is backed by [moment.js](http://momentjs.com/). Any formats [supported by moment](http://momentjs.com/docs/#/displaying/format/) are valid here.

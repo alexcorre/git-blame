@@ -32,6 +32,7 @@ BlameLineComponent = React.createClass
     summary: RP.string.isRequired
     backgroundClass: RP.string
     noCommit: RP.bool
+    showOnlyLastNames: RP.bool.isRequired
 
   render: ->
     if @props.noCommit
@@ -48,7 +49,10 @@ BlameLineComponent = React.createClass
           a href: url, target: '_blank', className: 'hash', @props.hash.substring(0, HASH_LENGTH)
         span className: 'date', @props.date
         span className: 'committer text-highlight',
-          @props.author.split(' ').slice(-1)[0]
+          if @props.showOnlyLastNames
+            @props.author.split(' ').slice(-1)[0]
+          else
+            @props.author
 
   componentDidMount: ->
     $el = $(@getDOMNode())
@@ -62,8 +66,8 @@ BlameLineComponent = React.createClass
   componentWillUnmount: ->
     $(@getDOMNode()).tooltip "destroy"
 
-  shouldComponentUpdate: ({hash}) ->
-    hash isnt @props.hash
+  shouldComponentUpdate: ({hash, showOnlyLastNames}) ->
+    hash isnt @props.hash or showOnlyLastNames != @props.showOnlyLastNames
 
   didClickHashWithoutUrl: (event, element) ->
     errorController.showError 'error-no-custom-url-specified'
