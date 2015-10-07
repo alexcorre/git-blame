@@ -14,6 +14,7 @@ BlameListLinesComponent = React.createClass
     dirty: RP.bool.isRequired
     initialLineCount: RP.number.isRequired
     remoteRevision: RP.object.isRequired
+    showOnlyLastNames: RP.bool.isRequired
 
   renderLoading: ->
     lines = [0...@props.initialLineCount].map renderLoading
@@ -40,8 +41,12 @@ BlameListLinesComponent = React.createClass
     # clone so it can be modified
     lines = _.clone @props.annotations
 
-    # add url to open diff
-    l.remoteRevision = @props.remoteRevision for l in lines
+    for l in lines
+      # add url to open diff
+      l.remoteRevision = @props.remoteRevision
+      # pass down showOnlyLastNames
+      l.showOnlyLastNames = @props.showOnlyLastNames
+
     @_addAlternatingBackgroundColor lines
     div null, lines.map BlameLineComponent
 
@@ -51,10 +56,11 @@ BlameListLinesComponent = React.createClass
     else
       @renderLoaded()
 
-  shouldComponentUpdate: ({loading, dirty}) ->
+  shouldComponentUpdate: ({loading, dirty, showOnlyLastNames}) ->
     finishedInitialLoad = @props.loading and not loading and not @props.dirty
     finishedEdit = @props.dirty and not dirty
-    finishedInitialLoad or finishedEdit
+    showOnlyLastNamesChanged = @props.showOnlyLastNames != showOnlyLastNames
+    finishedInitialLoad or finishedEdit or showOnlyLastNamesChanged
 
 BlameListView = React.createClass
   propTypes:
@@ -71,6 +77,7 @@ BlameListView = React.createClass
       loading: true
       visible: true
       dirty: false
+      showOnlyLastNames: atom.config.get('git-blame.showOnlyLastNames')
     }
 
   scrollbar: ->
@@ -96,6 +103,7 @@ BlameListView = React.createClass
             dirty: @state.dirty
             initialLineCount: @editor().getLineCount()
             remoteRevision: @props.remoteRevision
+            showOnlyLastNames: @state.showOnlyLastNames
     div
       className: 'git-blame'
       style: width: @state.width, display: display
@@ -152,11 +160,15 @@ BlameListView = React.createClass
     # Bind to scroll event on vertical-scrollbar to sync up scroll position of
     # blame gutter.
     @scrollbar().on 'scroll', @matchScrollPosition
+    # Keep showOnlyLastNames in sync
+    @showOnlyLastNamesObserver = atom.config.observe 'git-blame.showOnlyLastNames', (value) =>
+      @setState showOnlyLastNames: value
 
   componentWillUnmount: ->
     @scrollbar().off 'scroll', @matchScrollPosition
     @editor().off 'contents-modified', @contentsModified
     @editor().buffer.off 'saved', @saved
+    @showOnlyLastNamesObserver.dispose()
 
   # Makes the view arguments scroll position match the target elements scroll
   # position
