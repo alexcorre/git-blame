@@ -73,7 +73,7 @@ BlameListView = React.createClass
       # TODO: get this from the parent component somehow?
       scrollTop: @scrollbar().scrollTop()
       # TODO: be intelligent about persisting this so it doesn't reset
-      width: 210
+      width: atom.config.get('git-blame.columnWidth')
       loading: true
       visible: true
       dirty: false
