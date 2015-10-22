@@ -93,3 +93,4 @@ https://github.com/alexcorre/git-blame/commit/12345
 * **0.4.4**: Fix [#90](https://github.com/alexcorre/git-blame/issues/90)
 * **0.4.5**: Fix startup issues and the ability to click on a sha links. Thanks @filipminev
 * **0.4.6**: Add option to choose author name format. Thanks @javawizard
+* **0.4.7**: Make gutter width adjustable via settings. Thanks @wouterds
