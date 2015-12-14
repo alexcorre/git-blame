@@ -19,7 +19,7 @@
     "atom-space-pen-views": "^2.0.3",
     "react-atom-fork": "^0.11",
     "reactionary-atom-fork": "^0.9",
-    "pathwatcher": "^4.4",
+    "pathwatcher": "latest",
     "temp": "0.7.0"
   }
 }
