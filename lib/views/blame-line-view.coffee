@@ -64,7 +64,8 @@ BlameLineComponent = React.createClass
 
 
   componentWillUnmount: ->
-    $(@getDOMNode()).tooltip "destroy"
+    $el = $(@getDOMNode())
+    $el.tooltip "destroy" if $el.tooltip?
 
   shouldComponentUpdate: ({hash, showOnlyLastNames}) ->
     hash isnt @props.hash or showOnlyLastNames != @props.showOnlyLastNames
