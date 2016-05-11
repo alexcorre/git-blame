@@ -6,6 +6,7 @@ RP = React.PropTypes
 moment = require 'moment'
 {formatDate} = require '../util/blameFormatter'
 errorController = require '../controllers/errorController'
+shell = require 'shell'
 
 HASH_LENGTH = 7  # github uses this length
 BLANK_HASH = '-'.repeat(HASH_LENGTH)
@@ -46,7 +47,7 @@ BlameLineComponent = React.createClass
           a onClick: @didClickHashWithoutUrl, className: 'hash', @props.hash.substring(0, HASH_LENGTH)
         else
           url = @props.remoteRevision.url @props.hash
-          a href: url, target: '_blank', className: 'hash', @props.hash.substring(0, HASH_LENGTH)
+          a href: '#', 'data-url': url, className: 'hash', @props.hash.substring(0, HASH_LENGTH)
         span className: 'date', @props.date
         span className: 'committer text-highlight',
           if @props.showOnlyLastNames
@@ -56,12 +57,16 @@ BlameLineComponent = React.createClass
 
   componentDidMount: ->
     $el = $(@getDOMNode())
+    $('a', $el).click @didClickHashWithUrl
     if @props.summary
       atom.tooltips.add($el,
         title: @props.summary
         placement: "auto left"
       )
 
+  didClickHashWithUrl: (e) ->
+    e.preventDefault()
+    shell.openExternal(e.target.getAttribute('data-url'))
 
   componentWillUnmount: ->
     $(@getDOMNode()).tooltip "destroy"
