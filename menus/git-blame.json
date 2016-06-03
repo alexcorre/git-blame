@@ -8,7 +8,7 @@
   "menu": [{
     "label": "Packages",
     "submenu": [{
-      "label": "git-blame",
+      "label": "Git Blame",
       "submenu": [{
         "label": "Toggle Git Blame",
         "command": "git-blame:toggle"
