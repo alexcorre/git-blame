@@ -33,6 +33,7 @@ BlameLineComponent = React.createClass
     backgroundClass: RP.string
     noCommit: RP.bool
     showOnlyLastNames: RP.bool.isRequired
+    showHash: RP.bool.isRequired
 
   render: ->
     if @props.noCommit
@@ -41,18 +42,21 @@ BlameLineComponent = React.createClass
         span className: 'date', @props.date
         span className: 'committer', 'Nobody'
     else
+      labels = []
+      if (@props.showHash)
+        labels.push @props.hash.substring(0, HASH_LENGTH)
+      labels.push @props.date
+      if @props.showOnlyLastNames
+        labels.push @props.author.split(' ').slice(-1)[0]
+      else
+        labels.push @props.author
+      linkText = labels.join ' '
       div className: 'blame-line ' + @props.backgroundClass,
         unless @props.remoteRevision
-          a onClick: @didClickHashWithoutUrl, className: 'hash', @props.hash.substring(0, HASH_LENGTH)
+          a onClick: @didClickHashWithoutUrl, linkText
         else
           url = @props.remoteRevision.url @props.hash
-          a href: url, target: '_blank', className: 'hash', @props.hash.substring(0, HASH_LENGTH)
-        span className: 'date', @props.date
-        span className: 'committer text-highlight',
-          if @props.showOnlyLastNames
-            @props.author.split(' ').slice(-1)[0]
-          else
-            @props.author
+          a href: url, target: '_blank', linkText
 
   componentDidMount: ->
     $el = $(@getDOMNode())
@@ -66,8 +70,8 @@ BlameLineComponent = React.createClass
   componentWillUnmount: ->
     $(@getDOMNode()).tooltip "destroy"
 
-  shouldComponentUpdate: ({hash, showOnlyLastNames}) ->
-    hash isnt @props.hash or showOnlyLastNames != @props.showOnlyLastNames
+  shouldComponentUpdate: ({hash, showOnlyLastNames, showHash}) ->
+    hash isnt @props.hash or showOnlyLastNames != @props.showOnlyLastNames or showHash != @props.showHash
 
   didClickHashWithoutUrl: (event, element) ->
     errorController.showError 'error-no-custom-url-specified'
