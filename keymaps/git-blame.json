@@ -1,5 +1,5 @@
 {
-  "atom-text-editor": {
+  "atom-text-editor:not([mini])": {
     "ctrl-b": "git-blame:toggle"
   }
 }
