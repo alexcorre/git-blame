@@ -70,6 +70,8 @@ https://github.com/alexcorre/git-blame/commit/12345
 
 ## Release History
 
+This is now managed by [standard-version](https://github.com/conventional-changelog/standard-version). Use these [conventions](https://github.com/bcoe/conventional-changelog-standard/blob/master/convention.md) on your commit messages to have your changes show up in the auto-generated CHANGELOG.md.
+
 * **0.2.0**: Initial Release
 * **0.2.1**
   - Fix [Issue #1](https://github.com/alexcorre/git-blame/issues/1). Remote URL parsing.
