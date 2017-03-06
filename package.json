@@ -13,6 +13,9 @@
   "engines": {
     "atom": ">=1.0.0"
   },
+  "scripts": {
+    "bump": "standard-version"
+  },
   "dependencies": {
     "fs-plus": "^2.3.2",
     "underscore": "1.6.0",
