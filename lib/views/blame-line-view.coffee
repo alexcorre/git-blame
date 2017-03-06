@@ -34,6 +34,7 @@ BlameLineComponent = React.createClass
     backgroundClass: RP.string
     noCommit: RP.bool
     showOnlyLastNames: RP.bool.isRequired
+    showSummary: RP.bool.isRequired
 
   render: ->
     if @props.noCommit
@@ -54,6 +55,9 @@ BlameLineComponent = React.createClass
             @props.author.split(' ').slice(-1)[0]
           else
             @props.author
+        span className: 'summary',
+          if @props.showSummary
+            @props.summary
 
   componentDidMount: ->
     $el = $(@getDOMNode())
@@ -72,8 +76,9 @@ BlameLineComponent = React.createClass
     $el = $(@getDOMNode())
     $el.tooltip "destroy" if $el.tooltip?
 
-  shouldComponentUpdate: ({hash, showOnlyLastNames}) ->
-    hash isnt @props.hash or showOnlyLastNames != @props.showOnlyLastNames
+  shouldComponentUpdate: (changes) ->
+    ['hash', 'showOnlyLastNames', 'showSummary'].some (option) =>
+      changes[option] isnt @props[option]
 
   didClickHashWithoutUrl: (event, element) ->
     errorController.showError 'error-no-custom-url-specified'
