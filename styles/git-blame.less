@@ -7,11 +7,16 @@
 
 @git-blame-bg-color: @base-background-color;
 
+atom-text-editor .gutter[gutter-name="com.alexcorre.git-blame"] {
+  width: 250px;
+}
+
 atom-text-editor.editor .git-blame-mount,
 atom-text-editor .git-blame-mount {
   position: relative;
 
   .git-blame {
+
     .git-blame-resize-handle {
       .stretch(@left: auto);
       width: 10px;
