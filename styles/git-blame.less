@@ -11,64 +11,64 @@ atom-text-editor .gutter[gutter-name="com.alexcorre.git-blame"] {
   width: 250px;
 }
 
-atom-text-editor.editor .git-blame-mount,
-atom-text-editor .git-blame-mount {
-  position: relative;
-
-  .git-blame {
-
-    .git-blame-resize-handle {
-      .stretch(@left: auto);
-      width: 10px;
-      cursor: col-resize;
-      z-index: 1;
-    }
-
-    .git-blame-scroller {
-      .stretch();
-      overflow: hidden;
-      background-color: @git-blame-bg-color;
-      border-right: 1px solid @pane-item-border-color;
-      border-left: 1px solid @pane-item-border-color;
-
-      .blame-lines {
-        padding-bottom: 30px;
-        white-space: nowrap;
-
-        .blame-line {
-          padding-left: 4px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-
-          &.line-bg-lighter {
-            background-color: lighten(@git-blame-bg-color, 4%);
-          }
-
-          &.line-bg-darker {
-            background-color: darken(@git-blame-bg-color, 4%);
-          }
-
-          .hash, .date {
-            font-size: 90%;
-            padding-right: @component-padding;
-          }
-
-          a.hash {
-            color: @text-color;
-            text-decoration: none;
-          }
-
-          a.hash:hover {
-            text-decoration: underline;
-          }
-
-          &.no-commit {
-            .committer, .date {
-              display: none;
-            }
-          }
-        }
-      }
-    }
-  }
-}
+// atom-text-editor.editor .git-blame-mount,
+// atom-text-editor .git-blame-mount {
+//   position: relative;
+//
+//   .git-blame {
+//
+//     .git-blame-resize-handle {
+//       .stretch(@left: auto);
+//       width: 10px;
+//       cursor: col-resize;
+//       z-index: 1;
+//     }
+//
+//     .git-blame-scroller {
+//       .stretch();
+//       overflow: hidden;
+//       background-color: @git-blame-bg-color;
+//       border-right: 1px solid @pane-item-border-color;
+//       border-left: 1px solid @pane-item-border-color;
+//
+//       .blame-lines {
+//         padding-bottom: 30px;
+//         white-space: nowrap;
+//
+//         .blame-line {
+//           padding-left: 4px;
+//           overflow: hidden;
+//           text-overflow: ellipsis;
+//
+//           &.line-bg-lighter {
+//             background-color: lighten(@git-blame-bg-color, 4%);
+//           }
+// 
+//           &.line-bg-darker {
+//             background-color: darken(@git-blame-bg-color, 4%);
+//           }
+//
+//           .hash, .date {
+//             font-size: 90%;
+//             padding-right: @component-padding;
+//           }
+//
+//           a.hash {
+//             color: @text-color;
+//             text-decoration: none;
+//           }
+//
+//           a.hash:hover {
+//             text-decoration: underline;
+//           }
+//
+//           &.no-commit {
+//             .committer, .date {
+//               display: none;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
