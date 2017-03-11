@@ -9,6 +9,44 @@
 
 atom-text-editor .gutter[gutter-name="com.alexcorre.git-blame"] {
   width: 250px;
+
+  .blame-line-marker {
+    width: 100%;
+  }
+
+  .blame-line {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+
+    &.lighter {
+      background-color: lighten(@git-blame-bg-color, 4%);
+    }
+
+    &.darker {
+      background-color: darken(@git-blame-bg-color, 4%);
+    }
+
+    .hash, .date {
+      padding-right: @component-padding;
+    }
+
+    a.hash {
+      color: @text-color;
+      text-decoration: none;
+    }
+
+    a.hash:hover {
+      text-decoration: underline;
+    }
+
+    &.no-commit {
+      .committer, .date {
+        display: none;
+      }
+    }
+  }
 }
 
 // atom-text-editor.editor .git-blame-mount,
@@ -35,39 +73,7 @@ atom-text-editor .gutter[gutter-name="com.alexcorre.git-blame"] {
 //         padding-bottom: 30px;
 //         white-space: nowrap;
 //
-//         .blame-line {
-//           padding-left: 4px;
-//           overflow: hidden;
-//           text-overflow: ellipsis;
 //
-//           &.line-bg-lighter {
-//             background-color: lighten(@git-blame-bg-color, 4%);
-//           }
-// 
-//           &.line-bg-darker {
-//             background-color: darken(@git-blame-bg-color, 4%);
-//           }
-//
-//           .hash, .date {
-//             font-size: 90%;
-//             padding-right: @component-padding;
-//           }
-//
-//           a.hash {
-//             color: @text-color;
-//             text-decoration: none;
-//           }
-//
-//           a.hash:hover {
-//             text-decoration: underline;
-//           }
-//
-//           &.no-commit {
-//             .committer, .date {
-//               display: none;
-//             }
-//           }
-//         }
 //       }
 //     }
 //   }
