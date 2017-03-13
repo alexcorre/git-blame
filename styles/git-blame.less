@@ -14,6 +14,18 @@ atom-text-editor .gutter[gutter-name="com.alexcorre.git-blame"] {
     width: 100%;
   }
 
+  .resize-container {
+    .resize {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 8px;
+      cursor: col-resize;
+      background-color: red;
+    }
+  }
+
   .blame-line {
     width: 100%;
     overflow: hidden;
@@ -28,8 +40,10 @@ atom-text-editor .gutter[gutter-name="com.alexcorre.git-blame"] {
       background-color: darken(@git-blame-bg-color, 2%);
     }
 
-    .hash, .date {
-      padding-right: @component-padding;
+    &.no-commit {
+      .committer, .date {
+        display: none;
+      }
     }
 
     a.hash {
@@ -41,11 +55,10 @@ atom-text-editor .gutter[gutter-name="com.alexcorre.git-blame"] {
       text-decoration: underline;
     }
 
-    &.no-commit {
-      .committer, .date {
-        display: none;
-      }
+    .hash, .date {
+      padding-right: @component-padding;
     }
+
   }
 }
 
