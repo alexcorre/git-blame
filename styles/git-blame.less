@@ -9,6 +9,7 @@
 
 atom-text-editor .gutter[gutter-name="com.alexcorre.git-blame"] {
   border-right: 2px solid @pane-item-border-color;
+  border-left: 2px solid @pane-item-border-color;
 
   .blame-line-marker {
     width: 100%;
@@ -30,13 +31,14 @@ atom-text-editor .gutter[gutter-name="com.alexcorre.git-blame"] {
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: left;
+    padding: 0 4px;
 
     &.lighter {
-      background-color: lighten(@git-blame-bg-color, 2%);
+      background-color: lighten(@git-blame-bg-color, 3%);
     }
 
     &.darker {
-      background-color: darken(@git-blame-bg-color, 2%);
+      background-color: darken(@git-blame-bg-color, 3%);
     }
 
     &.no-commit {
