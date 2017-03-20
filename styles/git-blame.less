@@ -8,7 +8,7 @@
 @git-blame-bg-color: @base-background-color;
 
 atom-text-editor .gutter[gutter-name="com.alexcorre.git-blame"] {
-  width: 250px;
+  border-right: 1px solid @pane-item-border-color;
 
   .blame-line-marker {
     width: 100%;
@@ -22,7 +22,6 @@ atom-text-editor .gutter[gutter-name="com.alexcorre.git-blame"] {
       right: 0;
       width: 8px;
       cursor: col-resize;
-      background-color: red;
     }
   }
 
