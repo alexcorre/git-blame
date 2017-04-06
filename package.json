@@ -1,6 +1,6 @@
 {
   "name": "git-blame",
-  "main": "./lib/git-blame",
+  "main": "./lib/index",
   "version": "0.4.12",
   "description": "Toggle git-blame annotations in the gutter of atom editor.",
   "activationCommands": {
@@ -17,15 +17,15 @@
     "bump": "standard-version"
   },
   "dependencies": {
-    "fs-plus": "^2.3.2",
-    "underscore": "1.6.0",
-    "moment": "2.6.x",
-    "loophole": "1.0.x",
     "atom-space-pen-views": "^2.0.3",
-    "react-atom-fork": "^0.11",
-    "reactionary-atom-fork": "^0.9",
+    "fs-plus": "^2.3.2",
+    "loophole": "1.0.x",
+    "moment": "2.6.x",
     "pathwatcher": "^6.9.0",
-    "temp": "0.7.0"
+    "react-for-atom": "^15.3.1-0",
+    "recompose": "^0.22.0",
+    "temp": "0.7.0",
+    "underscore": "1.6.0"
   },
   "devDependencies": {
     "standard-version": "^4.0.0"
