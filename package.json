@@ -19,6 +19,7 @@
   "dependencies": {
     "atom-space-pen-views": "^2.0.3",
     "fs-plus": "^2.3.2",
+    "lodash": "^4.17.4",
     "loophole": "1.0.x",
     "moment": "2.6.x",
     "pathwatcher": "^6.9.0",
