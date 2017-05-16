@@ -1,4 +1,4 @@
-#git-blame
+# git-blame
 
 > Toggle git-blame annotations for the current file in the gutter of atom editor.
 
