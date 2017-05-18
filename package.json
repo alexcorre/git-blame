@@ -22,7 +22,6 @@
     "lodash": "^4.17.4",
     "loophole": "1.0.x",
     "moment": "2.6.x",
-    "pathwatcher": "^6.9.0",
     "react-for-atom": "^15.3.1-0",
     "recompose": "^0.22.0",
     "temp": "0.7.0",
