@@ -2,7 +2,7 @@
 
 > Toggle git-blame annotations in Atom.
 
-![screenshot](/images/screenshot.png?raw=true)
+![screenshot](/images/screenshot2.png?raw=true)
 
 ## Usage
 
