@@ -2,7 +2,7 @@
 
 > Toggle git-blame annotations for the current file in the gutter of atom editor.
 
-![screenshot](https://raw.githubusercontent.com/alexcorre/git-blame/master/images/screen-shot.png)
+![screenshot](/images/screenshot.png?raw=true)
 
 ## Usage
 
