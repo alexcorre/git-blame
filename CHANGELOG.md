@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/alexcorre/git-blame/compare/v1.0.2...v1.1.0) (2017-05-18)
+
+
+### Bug Fixes
+
+* **options:** respect showOnlyLastNames option when set ([108c4d0](https://github.com/alexcorre/git-blame/commit/108c4d0))
+* **syntax:** use const instead of let ([8082d7a](https://github.com/alexcorre/git-blame/commit/8082d7a))
+
+
+### Features
+
+* **display:** default option showOnlyLastNames to false instead of true ([b0489a0](https://github.com/alexcorre/git-blame/commit/b0489a0))
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/alexcorre/git-blame/compare/v1.0.1...v1.0.2) (2017-05-16)
 
