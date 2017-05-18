@@ -1,32 +1,23 @@
 # git-blame
 
-> Toggle git-blame annotations for the current file in the gutter of atom editor.
+> Toggle git-blame annotations in Atom.
 
 ![screenshot](/images/screenshot.png?raw=true)
 
 ## Usage
 
-### Toggling the gutter
-
-There a few ways to toggle the `git-blame` gutter.
-
-**Right Click**
-
-Right click the file you want to blame. Select `Toggle Git Blame` options from the dropdown.
+Use `ctrl-b` to activate blame. Alternatively, right click the file you want to blame and select `Toggle Git Blame` from the dropdown.
 
 ![right-click-activate](https://raw.githubusercontent.com/alexcorre/git-blame/master/images/right-click-activate.png)
 
-**Keyboard Shortcut**
-
-Show git blame for the currently active editor with the command `ctrl-b`. An editor pane is active if the the cursor is blinking on it.
-
-### Submodules
-
-Submodules? No problem, git-blame should take care of that.
-
 ### See the revision diff
 
-Click on the revision hash in the gutter to be taken to the configured repository visual diff. See setting a custom remote repo url section below for support beyond bitbucket and github.
+Click on the revision hash in the gutter to visit the configured repository diff site. Hosts supported out of the box are:
+
+* [GitHub](https://github.com/)
+* [BitBucket](https://bitbucket.org/)
+
+Custom remotes can be set globally via options. See below.
 
 ## Options
 
@@ -42,7 +33,7 @@ If this option is selected, only the last word of the author's name will be disp
 
 Default date format is `YYYY-MM-DD`. This feature is backed by [moment.js](http://momentjs.com/). Any formats [supported by moment](http://momentjs.com/docs/#/displaying/format/) are valid here.
 
-### Setting a Custom Remote Repo Url
+### Custom Remote Repo Url
 This plugin will first check to see if your repo is backed by **Github** or **Bitbucket** so nothing is required if your repo is hosted on one of these.
 
 If its not, you can easily set a custom revision URL string like so:
