@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/alexcorre/git-blame/compare/v1.2.0...v1.2.1) (2017-08-09)
+
+
+### Bug Fixes
+
+* **gutter:** gutter resize jump issue (#201) ([7fabe30](https://github.com/alexcorre/git-blame/commit/7fabe30))
+
+
+
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/alexcorre/git-blame/compare/v1.1.1...v1.2.0) (2017-08-02)
+
+
+### Features
+
+* **gutter:** Added an option to not show the hash in the gutter (#189) ([ee8b80c](https://github.com/alexcorre/git-blame/commit/ee8b80c))
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/alexcorre/git-blame/compare/v1.1.0...v1.1.1) (2017-05-18)
 
