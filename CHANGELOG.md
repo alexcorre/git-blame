@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.2"></a>
+## [1.2.2](https://github.com/alexcorre/git-blame/compare/v1.2.1...v1.2.2) (2017-08-24)
+
+
+### Bug Fixes
+
+* **tooltip:** tooltips remaining after hiding the gutter (#204) ([3bcdb1e](https://github.com/alexcorre/git-blame/commit/3bcdb1e))
+
+
+
 <a name="1.2.1"></a>
 ## [1.2.1](https://github.com/alexcorre/git-blame/compare/v1.2.0...v1.2.1) (2017-08-09)
 
