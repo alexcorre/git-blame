@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/alexcorre/git-blame/compare/v1.2.2...v1.3.0) (2017-09-24)
+
+
+### Features
+
+* **gitlab:** Add GitLab to default repo sources (#207) ([5079a47](https://github.com/alexcorre/git-blame/commit/5079a47)), closes [#183](https://github.com/alexcorre/git-blame/issues/183)
+
+
+
 <a name="1.2.2"></a>
 ## [1.2.2](https://github.com/alexcorre/git-blame/compare/v1.2.1...v1.2.2) (2017-08-24)
 
