@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.1"></a>
+## [1.3.1](https://github.com/alexcorre/git-blame/compare/v1.3.0...v1.3.1) (2017-09-24)
+
+
+### Bug Fixes
+
+* **syntax:** fix syntax error preventing package activation (#208) ([5537244](https://github.com/alexcorre/git-blame/commit/5537244)), closes [#208](https://github.com/alexcorre/git-blame/issues/208)
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/alexcorre/git-blame/compare/v1.2.2...v1.3.0) (2017-09-24)
 
