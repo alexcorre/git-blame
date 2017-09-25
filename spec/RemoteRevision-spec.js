@@ -1,6 +1,6 @@
 var RemoteRevision = require('../lib/util/RemoteRevision');
 
-describe('RemoteRevision', function() {
+describe('RemoteRevision', function () {
 
   var DEFAULT_HASH = '12345';
   var instance;
@@ -10,7 +10,7 @@ describe('RemoteRevision', function() {
     instance = new RemoteRevision(fakeRemoteUrl);
   });
 
-  describe('parseProjectAndRepo', function() {
+  describe('parseProjectAndRepo', function () {
 
     beforeEach(function () {
       instance.hash = DEFAULT_HASH;
@@ -39,7 +39,7 @@ describe('RemoteRevision', function() {
 
       expect(output).toEqual({
         project: 'project',
-        repo: 'someRepo'
+        repo: 'someRepo',
       });
     });
 
@@ -51,7 +51,7 @@ describe('RemoteRevision', function() {
 
       expect(output).toEqual({
         project: 'project',
-        repo: 'someRepo'
+        repo: 'someRepo',
       });
     });
 
@@ -63,7 +63,7 @@ describe('RemoteRevision', function() {
 
       expect(output).toEqual({
         project: 'project',
-        repo: 'someRepo'
+        repo: 'someRepo',
       });
     });
 
@@ -75,7 +75,7 @@ describe('RemoteRevision', function() {
 
       expect(output).toEqual({
         project: 'some-project',
-        repo: 'some-repo'
+        repo: 'some-repo',
       });
     });
 
@@ -87,11 +87,11 @@ describe('RemoteRevision', function() {
 
       expect(output).toEqual({
         project: 'some-project',
-        repo: 'some-repo'
+        repo: 'some-repo',
       });
     });
 
-    it('Should work with a url with a port', function() {
+    it('Should work with a url with a port', function () {
       var portRemoteUrl = 'ssh://git@git.my-company.com:2222/group/repo-name.git';
       instance.remote = portRemoteUrl;
 
@@ -99,11 +99,11 @@ describe('RemoteRevision', function() {
 
       expect(output).toEqual({
         project: 'group',
-        repo: 'repo-name'
+        repo: 'repo-name',
       });
     });
 
-    it('Should work with a url with a port and colon', function() {
+    it('Should work with a url with a port and colon', function () {
       var portRemoteUrl = 'git@git.my-company.com:2222:group/repo-name.git';
       instance.remote = portRemoteUrl;
 
@@ -111,11 +111,11 @@ describe('RemoteRevision', function() {
 
       expect(output).toEqual({
         project: 'group',
-        repo: 'repo-name'
+        repo: 'repo-name',
       });
     });
 
-    it('Should work without a project', function() {
+    it('Should work without a project', function () {
       var repoOnlyUrl = 'git@git.my-company.com:repo-name.git';
       instance.remote = repoOnlyUrl;
 
@@ -123,11 +123,11 @@ describe('RemoteRevision', function() {
 
       expect(output).toEqual({
         project: 'repo-name',
-        repo: 'repo-name'
+        repo: 'repo-name',
       });
     });
 
-    it('Should work when there is a . in the repo name', function() {
+    it('Should work when there is a . in the repo name', function () {
       var dotRepoUrl = 'git@github.com:MoOx/moox.github.io.git';
       instance.remote = dotRepoUrl;
 
@@ -135,11 +135,11 @@ describe('RemoteRevision', function() {
 
       expect(output).toEqual({
         project: 'MoOx',
-        repo: 'moox.github.io'
+        repo: 'moox.github.io',
       });
     });
 
-    it('Should work when there is a . in the project name', function() {
+    it('Should work when there is a . in the project name', function () {
       var dotRepoUrl = 'git@github.com:Mo.Ox/moox.github.io.git';
       instance.remote = dotRepoUrl;
 
@@ -147,7 +147,7 @@ describe('RemoteRevision', function() {
 
       expect(output).toEqual({
         project: 'Mo.Ox',
-        repo: 'moox.github.io'
+        repo: 'moox.github.io',
       });
     });
 
