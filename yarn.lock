@@ -1095,7 +1095,7 @@ underscore-plus@1.x:
   dependencies:
     underscore "~1.6.0"
 
-underscore@1.6.0, underscore@~1.6.0:
+underscore@~1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.6.0.tgz#8b38b10cacdef63337b8b24e4ff86d45aea529a8"
 

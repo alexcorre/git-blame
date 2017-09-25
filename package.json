@@ -23,8 +23,7 @@
     "moment": "2.6.x",
     "react-for-atom": "^15.3.1-0",
     "recompose": "^0.22.0",
-    "temp": "0.7.0",
-    "underscore": "1.6.0"
+    "temp": "0.7.0"
   },
   "devDependencies": {
     "standard-version": "^4.0.0"
