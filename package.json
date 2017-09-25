@@ -14,7 +14,9 @@
     "atom": ">=1.0.0"
   },
   "scripts": {
-    "bump": "standard-version"
+    "bump": "standard-version",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "dependencies": {
     "lodash": "^4.17.4",
@@ -24,6 +26,8 @@
     "recompose": "^0.22.0"
   },
   "devDependencies": {
+    "@workpop/eslint-config-workpop": "^1.0.0",
+    "eslint": "^4.7.2",
     "fs-plus": "^3.0.1",
     "standard-version": "^4.0.0",
     "temp": "^0.8.3"

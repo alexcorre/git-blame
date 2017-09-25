@@ -1,0 +1,5 @@
+{
+  "extends": "@workpop/eslint-config-workpop",
+  "rules": {
+  }
+}
