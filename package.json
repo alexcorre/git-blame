@@ -25,6 +25,7 @@
     "recompose": "^0.22.0"
   },
   "devDependencies": {
-    "standard-version": "^4.0.0"
+    "standard-version": "^4.0.0",
+    "temp": "^0.8.3"
   }
 }
