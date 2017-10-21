@@ -15,7 +15,8 @@ Use `ctrl-b` to activate blame. Alternatively, right click the file you want to 
 Click on the revision hash in the gutter to visit the configured repository diff site. Hosts supported out of the box are:
 
 * [GitHub](https://github.com/)
-* [BitBucket](https://bitbucket.org/)
+* [Bitbucket](https://bitbucket.org/)
+* [GitLab](https://gitlab.com/)
 
 Custom remotes can be set globally via options. See below.
 
@@ -34,7 +35,7 @@ If this option is selected, only the last word of the author's name will be disp
 Default date format is `YYYY-MM-DD`. This feature is backed by [moment.js](http://momentjs.com/). Any formats [supported by moment](http://momentjs.com/docs/#/displaying/format/) are valid here.
 
 ### Custom Remote Repo Url
-This plugin will first check to see if your repo is backed by **Github** or **Bitbucket** so nothing is required if your repo is hosted on one of these.
+This plugin will first check to see if your repo is backed by **GitHub**, **Bitbucket**, or **GitLab** so nothing is required if your repo is hosted on one of these.
 
 If its not, you can easily set a custom revision URL string like so:
 - From the settings view go to settings for this package *Git Blame*
