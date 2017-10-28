@@ -59,6 +59,10 @@ So when you clicked on hash revision 12345 in this git-blame repository, you wou
 ```
 https://github.com/alexcorre/git-blame/commit/12345
 ```
+### Color commit authors
+If this option is selected, the commit authors will appear with a unique color to make them easily recognisable.
+
+![example-color-commit-authors](https://user-images.githubusercontent.com/3835113/29147589-e4a87294-7d5f-11e7-87e4-c99808eb66a2.png)
 
 ## Release History
 
