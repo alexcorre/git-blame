@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/alexcorre/git-blame/compare/v1.3.1...v1.4.0) (2017-12-11)
+
+
+### Bug Fixes
+
+* **ux:** default color commit authors to false ([60aeb01](https://github.com/alexcorre/git-blame/commit/60aeb01))
+* **ux:** text overflow in gutter (#216) ([0237c96](https://github.com/alexcorre/git-blame/commit/0237c96))
+* **ux:** tweak color styles. lint. ([efcb9af](https://github.com/alexcorre/git-blame/commit/efcb9af))
+
+
+### Features
+
+* **errors:** use atom build in error notier. remove legacy space pen custom view ([91274ab](https://github.com/alexcorre/git-blame/commit/91274ab))
+* **ux:** color commit authors (#205) ([3236257](https://github.com/alexcorre/git-blame/commit/3236257))
+
+
+
 <a name="1.3.1"></a>
 ## [1.3.1](https://github.com/alexcorre/git-blame/compare/v1.3.0...v1.3.1) (2017-09-24)
 
