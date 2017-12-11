@@ -34,6 +34,9 @@ If this option is selected, only the last word of the author's name will be disp
 
 Default date format is `YYYY-MM-DD`. This feature is backed by [moment.js](http://momentjs.com/). Any formats [supported by moment](http://momentjs.com/docs/#/displaying/format/) are valid here.
 
+### Color commit authors
+If this option is selected, the commit authors will appear with a unique color to make them easily recognisable.
+
 ### Custom Remote Repo Url
 This plugin will first check to see if your repo is backed by **GitHub**, **Bitbucket**, or **GitLab** so nothing is required if your repo is hosted on one of these.
 
