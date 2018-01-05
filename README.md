@@ -40,6 +40,7 @@ If this option is selected, the commit authors will appear with a unique color t
 ### Custom Remote Repo Url
 This plugin will first check to see if your repo is backed by **GitHub**, **Bitbucket**, or **GitLab** so nothing is required if your repo is hosted on one of these.
 
+
 If its not, you can easily set a custom revision URL string like so:
 - From the settings view go to settings for this package *Git Blame*
 - Check the box for "Use Custom Url Template If Standard Remotes Fail"
@@ -61,6 +62,18 @@ So when you clicked on hash revision 12345 in this git-blame repository, you wou
 
 ```
 https://github.com/alexcorre/git-blame/commit/12345
+```
+
+You can also set a custom URL in your git config. If present, it will be used insted of the one in the package settings.
+You can add or change it with this command:
+```bash
+git config --local git-blame.customRepositoryUrl "http://my_server/gitweb/?p=<%- repo %>.git;a=commit;h=<%- revision %>"
+```
+
+Or by edit your `.git/config` and add an entry like this:
+```ini
+[git-blame]
+	customRepositoryUrl = "http://my_server/gitweb/?p=<%- repo %>.git;a=commit;h=<%- revision %>"
 ```
 
 ## Release History
