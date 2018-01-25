@@ -67,13 +67,13 @@ https://github.com/alexcorre/git-blame/commit/12345
 You can also set a custom URL in your git config. If present, it will be used insted of the one in the package settings.
 You can add or change it with this command:
 ```bash
-git config --local git-blame.customRepositoryUrl "http://my_server/gitweb/?p=<%- repo %>.git;a=commit;h=<%- revision %>"
+git config --local atom-git-blame.repositoryUrlTemplate "http://my_server/gitweb/?p=<%- repo %>.git;a=commit;h=<%- revision %>"
 ```
 
 Or by edit your `.git/config` and add an entry like this:
 ```ini
-[git-blame]
-	customRepositoryUrl = "http://my_server/gitweb/?p=<%- repo %>.git;a=commit;h=<%- revision %>"
+[atom-git-blame]
+	repositoryUrlTemplate = "http://my_server/gitweb/?p=<%- repo %>.git;a=commit;h=<%- revision %>"
 ```
 
 ## Release History
