@@ -2,6 +2,10 @@
 
 > Toggle git-blame annotations in Atom.
 
+[![Travis](https://img.shields.io/travis/alexcorre/git-blame.svg)](https://travis-ci.org/alexcorre/git-blame)
+[![apm](https://img.shields.io/apm/v/git-blame.svg)](https://atom.io/packages/git-blame)
+[![apm](https://img.shields.io/apm/dm/git-blame.svg)](https://atom.io/packages/git-blame)
+
 ![screenshot](/images/screenshot2.png?raw=true)
 
 ## Usage
