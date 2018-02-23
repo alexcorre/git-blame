@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/alexcorre/git-blame/compare/v1.5.1...v1.6.0) (2018-02-23)
+
+
+### Features
+
+* **copy:** when no template is found for the repo, copy the hash to the clipboard and notify on click (#226) ([e7897be](https://github.com/alexcorre/git-blame/commit/e7897be))
+
+
+
 <a name="1.5.1"></a>
 ## [1.5.1](https://github.com/alexcorre/git-blame/compare/v1.5.0...v1.5.1) (2018-02-23)
 
