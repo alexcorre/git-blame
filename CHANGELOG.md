@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.1"></a>
+## [1.5.1](https://github.com/alexcorre/git-blame/compare/v1.5.0...v1.5.1) (2018-02-23)
+
+
+### Bug Fixes
+
+* **blamer:** fix the non-working blame functionality for certain files (#219) ([cbef3ab](https://github.com/alexcorre/git-blame/commit/cbef3ab)), closes [#219](https://github.com/alexcorre/git-blame/issues/219)
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/alexcorre/git-blame/compare/v1.4.0...v1.5.0) (2018-01-25)
 
