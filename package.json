@@ -16,7 +16,8 @@
   "scripts": {
     "bump": "standard-version",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "test": "npm run lint"
   },
   "dependencies": {
     "@workpop/simple-logger": "^1.0.0",
