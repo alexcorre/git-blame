@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/alexcorre/git-blame/compare/v1.6.1...v1.7.0) (2018-06-07)
+
+
+### Bug Fixes
+
+* **config:** Git Binary -> Git Binary Path for clarity ([c28e3b6](https://github.com/alexcorre/git-blame/commit/c28e3b6))
+
+
+### Features
+
+* **git:** add support for custom gitBinary path (#227) ([595d057](https://github.com/alexcorre/git-blame/commit/595d057))
+
+
+
 <a name="1.6.1"></a>
 ## [1.6.1](https://github.com/alexcorre/git-blame/compare/v1.6.0...v1.6.1) (2018-06-07)
 
