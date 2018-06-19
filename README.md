@@ -30,9 +30,13 @@ Custom remotes can be set globally via options. See below.
 
 If this option is selected, the `git blame` command will be run with `-w` option.
 
-### Show Only Last Names
+### Show First Names
 
-If this option is selected, only the last word of the author's name will be displayed.
+If this option is selected, only the first word of the author's name will be displayed. (If both Show First Names and Show Last Names are enabled, the entire author name will be displayed, regardless of whether it contains only two name parts).
+
+### Show Last Names
+
+If this option is selected, only the last word of the author's name will be displayed. (If both Show First Names and Show Last Names are enabled, the entire author name will be displayed, regardless of whether it contains only two name parts).
 
 ### Date Format String
 
