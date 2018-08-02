@@ -30,7 +30,6 @@ describe('RemoteRevision', function () {
       expect(output).toEqual({});
     });
 
-
     it('Should parse a standard github url correctly', function () {
       var githubRemote = 'git@github.com:project/someRepo.git';
       instance.remote = githubRemote;
@@ -149,6 +148,20 @@ describe('RemoteRevision', function () {
         project: 'Mo.Ox',
         repo: 'moox.github.io',
       });
+    });
+
+  });
+
+  describe('repos with no remotes named origin', function () {
+
+    it('Should return an empty object if no remote repo url is passed in', function () {
+
+      // this will be the case when using Atom's repo.getOriginURL() when there
+      // is no remote named origin
+
+      instance = new RemoteRevision(undefined);
+      var output = instance.parseProjectAndRepo();
+      expect(output).toEqual({});
     });
 
   });
