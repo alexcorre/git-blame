@@ -22,6 +22,8 @@ Click on the revision hash in the gutter to visit the configured repository diff
 * [Bitbucket](https://bitbucket.org/)
 * [GitLab](https://gitlab.com/)
 
+If the remote repo has a URL we don't recognize, or if there is no remote named
+`origin`, the commit hash will be copied to the clipboard.
 Custom remotes can be set globally via options. See below.
 
 ## Options
