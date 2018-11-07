@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.8.0"></a>
+# [1.8.0](https://github.com/alexcorre/git-blame/compare/v1.7.0...v1.8.0) (2018-11-07)
+
+
+### Bug Fixes
+
+* #193: don't fail when there is no remote named origin (#233) ([9a0e59f](https://github.com/alexcorre/git-blame/commit/9a0e59f)), closes [#193](https://github.com/alexcorre/git-blame/issues/193)
+
+
+### Features
+
+* **config:** Added ability to show only first name / only last name / both (#232) ([3b5409a](https://github.com/alexcorre/git-blame/commit/3b5409a))
+
+
+
 <a name="1.7.0"></a>
 # [1.7.0](https://github.com/alexcorre/git-blame/compare/v1.6.1...v1.7.0) (2018-06-07)
 
